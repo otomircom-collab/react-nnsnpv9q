@@ -70,7 +70,7 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <Mail className="w-4 h-4 mt-1 text-orange-500" />
                 <div>
-                  <div>info@otodepon.com.tr</div>
+                  <div>info@otomarketgo.com</div>
                 </div>
               </li>
               <li className="flex items-start gap-2">
