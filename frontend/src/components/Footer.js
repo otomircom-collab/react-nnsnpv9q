@@ -52,7 +52,7 @@ const Footer = () => {
               <li><Link to="/siparis-takip" className="hover:text-orange-500 transition-colors">Sipariş Takibi</Link></li>
               <li><Link to="/iade" className="hover:text-orange-500 transition-colors">İade & Değişim</Link></li>
               <li><Link to="/garanti" className="hover:text-orange-500 transition-colors">Garanti Koşulları</Link></li>
-              <li><Link to="/sss" className="hover:text-orange-500 transition-colors">Sıkça Sorulan Sorular</Link></li>
+              <li><Link to="/sss" className="hover:text-orange-500 transition-colors">S.S.S</Link></li>
             </ul>
           </div>
 
