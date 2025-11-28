@@ -85,7 +85,61 @@ class ScrapeStatus(BaseModel):
     error: Optional[str] = None
 
 
-async def scrape_hangifiltre(url: str, task_id: str):
+async def fetch_product_sku(page, product_url: str) -> str:
+    """Fetch SKU from product detail page"""
+    try:
+        await page.goto(product_url, wait_until="networkidle", timeout=30000)
+        await asyncio.sleep(0.5)
+        
+        content = await page.content()
+        soup = BeautifulSoup(content, 'html.parser')
+        
+        # Look for SKU in product page
+        sku_elem = soup.select_one('.sku, .product_meta .sku')
+        if sku_elem:
+            sku_text = sku_elem.get_text(strip=True)
+            # Extract SKU value
+            if ':' in sku_text:
+                return sku_text.split(':')[1].strip()
+            return sku_text
+        
+        return "N/A"
+    except Exception as e:
+        logging.error(f"Error fetching SKU from {product_url}: {str(e)}")
+        return "N/A"
+
+
+async def get_all_categories(page, base_url: str) -> list:
+    """Get all sub-categories from a category page"""
+    try:
+        await page.goto(base_url, wait_until="networkidle", timeout=30000)
+        await asyncio.sleep(1)
+        
+        content = await page.content()
+        soup = BeautifulSoup(content, 'html.parser')
+        
+        categories = []
+        category_items = soup.select('.product-category')
+        
+        for item in category_items:
+            link_elem = item.select_one('a')
+            name_elem = item.select_one('h2, h3, .woocommerce-loop-category__title')
+            
+            if link_elem and name_elem:
+                url = link_elem.get('href', '')
+                name = name_elem.get_text(strip=True)
+                
+                if url and name:
+                    categories.append({'name': name, 'url': url})
+        
+        return categories
+    except Exception as e:
+        logging.error(f"Error getting categories from {base_url}: {str(e)}")
+        return []
+
+
+async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool = False, 
+                             fetch_sku: bool = False, only_in_stock: bool = True):
     """Scrape products from hangifiltre.com with pagination support"""
     try:
         scraping_tasks[task_id] = {
