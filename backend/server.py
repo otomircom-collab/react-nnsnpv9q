@@ -19,6 +19,7 @@ from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
 import requests
 from io import BytesIO
+from universal_scraper import UniversalScraper
 
 
 ROOT_DIR = Path(__file__).parent
