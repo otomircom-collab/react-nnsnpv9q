@@ -29,6 +29,11 @@ function App() {
             <Route path="/" element={<YedekParcaPage />} />
             <Route path="/aksesuar" element={<AksesuarPage />} />
             <Route path="/jant-lastik" element={<JantLastikPage />} />
+            <Route path="/ustam-ozel" element={<UstamOzelPage />} />
+            <Route path="/bakim-robotu" element={<BakimRobotuPage />} />
+            <Route path="/sigortan" element={<SigortanPage />} />
+            <Route path="/aninda-teslimat" element={<AnindaTeslimatPage />} />
+            <Route path="/servis-bulucu" element={<ServisBulucuPage />} />
             <Route path="/kategori/:category" element={<ProductListPage />} />
             <Route path="/urun/:id" element={<ProductDetailPage />} />
             <Route path="/sepet" element={<CartPage />} />
