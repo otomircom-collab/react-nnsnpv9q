@@ -83,7 +83,7 @@ class ScrapeStatus(BaseModel):
 
 
 async def scrape_hangifiltre(url: str, task_id: str):
-    """Scrape products from hangifiltre.com"""
+    """Scrape products from hangifiltre.com with pagination support"""
     try:
         scraping_tasks[task_id] = {
             "status": "processing",
@@ -100,8 +100,23 @@ async def scrape_hangifiltre(url: str, task_id: str):
             )
             page = await browser.new_page()
             
+            all_products = []
+            current_page = 1
+            max_pages = 100  # Limit to 100 pages to avoid timeout (100 pages = ~1,600 products)
+            
             scraping_tasks[task_id]["status"] = "loading_page"
-            await page.goto(url, wait_until="networkidle", timeout=60000)
+            base_url = url if not url.endswith('/') else url[:-1]
+            
+            while current_page <= max_pages:
+                try:
+                    # Construct page URL
+                    if current_page == 1:
+                        page_url = url
+                    else:
+                        page_url = f"{base_url}/page/{current_page}/"
+                    
+                    scraping_tasks[task_id]["status"] = f"page_{current_page}"
+                    await page.goto(page_url, wait_until="networkidle", timeout=60000)
             
             # Wait for products to load
             try:
