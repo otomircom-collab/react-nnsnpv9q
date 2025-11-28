@@ -169,34 +169,48 @@ function App() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="input-group">
-              <Input
-                data-testid="url-input"
-                type="text"
-                placeholder="https://hangifiltre.com/kategori/..."
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleScrape()}
-                disabled={loading || (status && status !== "completed" && status !== "failed")}
-              />
-              <Button 
-                data-testid="scrape-button"
-                onClick={handleScrape}
-                disabled={loading || (status && status !== "completed" && status !== "failed")}
-                size="lg"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Başlatılıyor...
-                  </>
-                ) : (
-                  <>
-                    <Search className="mr-2 h-4 w-4" />
-                    Veri Çek
-                  </>
-                )}
-              </Button>
+            <div className="input-section">
+              <div className="input-group">
+                <Input
+                  data-testid="url-input"
+                  type="text"
+                  placeholder="https://hangifiltre.com/kategori/..."
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleScrape()}
+                  disabled={loading || (status && status !== "completed" && status !== "failed")}
+                />
+                <Button 
+                  data-testid="scrape-button"
+                  onClick={handleScrape}
+                  disabled={loading || (status && status !== "completed" && status !== "failed")}
+                  size="lg"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Başlatılıyor...
+                    </>
+                  ) : (
+                    <>
+                      <Search className="mr-2 h-4 w-4" />
+                      {scrapeAllCategories ? "TÜM KATEGORİLERİ TARA" : "Veri Çek"}
+                    </>
+                  )}
+                </Button>
+              </div>
+              
+              <div className="checkbox-group">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    checked={scrapeAllCategories}
+                    onChange={(e) => setScrapeAllCategories(e.target.checked)}
+                    disabled={loading || (status && status !== "completed" && status !== "failed")}
+                  />
+                  <span>Tüm alt kategorileri otomatik tara (Binlerce ürün)</span>
+                </label>
+              </div>
             </div>
 
             {status && (
