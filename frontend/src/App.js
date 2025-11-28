@@ -63,15 +63,10 @@ function App() {
     setProgress(0);
 
     try {
-      const response = await axios.post(`${API}/scrape`, { 
-        url,
-        scrape_all_categories: scrapeAllCategories,
-        fetch_sku: false,
-        only_in_stock: true
-      });
+      const response = await axios.post(`${API}/scrape`, { url });
       setTaskId(response.data.task_id);
       setStatus("started");
-      toast.info(scrapeAllCategories ? "Tüm kategoriler taranıyor..." : "Veri çekme işlemi başlatıldı...");
+      toast.info("Tüm site otomatik taranıyor...");
     } catch (error) {
       console.error("Scrape error:", error);
       toast.error("Bir hata oluştu: " + error.message);
