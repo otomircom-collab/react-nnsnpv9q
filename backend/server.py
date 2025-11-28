@@ -140,7 +140,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
                         raise
                     await asyncio.sleep(1)
             
-            await page.evaluate(\"window.scrollTo(0, document.body.scrollHeight)\")
+            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
             await asyncio.sleep(0.5)
             
             content = await page.content()
