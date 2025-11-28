@@ -94,7 +94,10 @@ async def scrape_hangifiltre(url: str, task_id: str):
         }
         
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
+            browser = await p.chromium.launch(
+                headless=True,
+                args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+            )
             page = await browser.new_page()
             
             scraping_tasks[task_id]["status"] = "loading_page"
