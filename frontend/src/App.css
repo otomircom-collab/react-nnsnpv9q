@@ -132,6 +132,36 @@ body {
   font-weight: 500;
 }
 
+.scrape-main-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+}
+
+.scrape-main-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+}
+
+.info-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.info-box p {
+  margin: 0.5rem 0;
+  color: #1e40af;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.info-box strong {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
 .input-group input {
   flex: 1;
   min-width: 250px;
