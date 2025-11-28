@@ -183,7 +183,12 @@ function App() {
                 {status !== "completed" && status !== "failed" && (
                   <div className="progress-section">
                     <Progress value={progress} className="progress-bar" />
-                    <span className="progress-text">{progress}%</span>
+                    <div className="progress-info">
+                      <span className="progress-text">{progress}%</span>
+                      {products.length > 0 && (
+                        <span className="products-count">{products.length} ürün çekildi...</span>
+                      )}
+                    </div>
                   </div>
                 )}
 
