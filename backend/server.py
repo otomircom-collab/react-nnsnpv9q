@@ -140,60 +140,88 @@ async def scrape_hangifiltre(url: str, task_id: str):
                     
                     for item in product_items:
                         try:
-                # Extract product name
-                name_elem = item.select_one('.woocommerce-loop-product__title, .product-title, h2, h3')
-                name = name_elem.get_text(strip=True) if name_elem else "N/A"
-                
-                # Extract brand
-                brand_elem = item.select_one('.product-brand, .brand')
-                brand = brand_elem.get_text(strip=True) if brand_elem else "N/A"
-                
-                # Extract price
-                price_elem = item.select_one('.price ins .amount, .price .amount, .price')
-                if price_elem:
-                    price_text = price_elem.get_text(strip=True)
-                    # Remove 'Orijinal fiyat' and 'Şu andaki fiyat' text
-                    price = price_text.split(':')[-1].strip() if ':' in price_text else price_text
-                else:
-                    price = "N/A"
-                
-                # Extract old price
-                old_price_elem = item.select_one('.price del .amount')
-                if old_price_elem:
-                    old_price_text = old_price_elem.get_text(strip=True)
-                    old_price = old_price_text.split(':')[-1].strip() if ':' in old_price_text else old_price_text
-                else:
-                    old_price = "N/A"
-                
-                # Extract image
-                img_elem = item.select_one('img')
-                image_url = img_elem.get('src', img_elem.get('data-src', 'N/A')) if img_elem else "N/A"
-                
-                # Extract product URL
-                link_elem = item.select_one('a')
-                product_url = link_elem.get('href', 'N/A') if link_elem else "N/A"
-                
-                product = Product(
-                    name=name,
-                    brand=brand,
-                    sku="N/A",  # SKU typically needs detail page visit
-                    price=price,
-                    old_price=old_price,
-                    stock_status="Stokta",
-                    image_url=image_url,
-                    product_url=product_url
-                )
-                
-                products.append(product)
-                scraping_tasks[task_id]["progress"] = int((idx + 1) / len(product_items) * 100)
-                scraping_tasks[task_id]["products"] = products
-                
-            except Exception as e:
-                logging.error(f"Error extracting product: {str(e)}")
-                continue
-        
-        scraping_tasks[task_id]["status"] = "completed"
-        scraping_tasks[task_id]["progress"] = 100
+                            # Extract product name
+                            name_elem = item.select_one('.woocommerce-loop-product__title, .product-title, h2, h3')
+                            name = name_elem.get_text(strip=True) if name_elem else "N/A"
+                            
+                            # Extract brand
+                            brand_elem = item.select_one('.product-brand, .brand')
+                            brand = brand_elem.get_text(strip=True) if brand_elem else "N/A"
+                            
+                            # Extract price
+                            price_elem = item.select_one('.price ins .amount, .price .amount, .price')
+                            if price_elem:
+                                price_text = price_elem.get_text(strip=True)
+                                price = price_text.split(':')[-1].strip() if ':' in price_text else price_text
+                            else:
+                                price = "N/A"
+                            
+                            # Extract old price
+                            old_price_elem = item.select_one('.price del .amount')
+                            if old_price_elem:
+                                old_price_text = old_price_elem.get_text(strip=True)
+                                old_price = old_price_text.split(':')[-1].strip() if ':' in old_price_text else old_price_text
+                            else:
+                                old_price = "N/A"
+                            
+                            # Extract image
+                            img_elem = item.select_one('img')
+                            image_url = img_elem.get('src', img_elem.get('data-src', 'N/A')) if img_elem else "N/A"
+                            
+                            # Extract product URL
+                            link_elem = item.select_one('a')
+                            product_url = link_elem.get('href', 'N/A') if link_elem else "N/A"
+                            
+                            product = Product(
+                                name=name,
+                                brand=brand,
+                                sku="N/A",
+                                price=price,
+                                old_price=old_price,
+                                stock_status="Stokta",
+                                image_url=image_url,
+                                product_url=product_url
+                            )
+                            
+                            page_products.append(product)
+                            
+                        except Exception as e:
+                            logging.error(f"Error extracting product: {str(e)}")
+                            continue
+                    
+                    # Add page products to all products
+                    all_products.extend(page_products)
+                    scraping_tasks[task_id]["products"] = all_products
+                    scraping_tasks[task_id]["total_products"] = len(all_products)
+                    
+                    # Update progress
+                    progress = min(int((current_page / max_pages) * 100), 99)
+                    scraping_tasks[task_id]["progress"] = progress
+                    
+                    logging.info(f"Page {current_page}: {len(page_products)} products extracted. Total: {len(all_products)}")
+                    
+                    # Check if there are more pages
+                    if len(page_products) == 0:
+                        logging.info(f"No products found on page {current_page}. Stopping.")
+                        break
+                    
+                    # Check for next page link
+                    has_next = soup.select_one('a.next.page-numbers, a[rel="next"]')
+                    if not has_next and current_page > 1:
+                        logging.info(f"No more pages after page {current_page}. Stopping.")
+                        break
+                    
+                    current_page += 1
+                    
+                except Exception as page_error:
+                    logging.error(f"Error on page {current_page}: {str(page_error)}")
+                    break
+            
+            await browser.close()
+            
+            scraping_tasks[task_id]["status"] = "completed"
+            scraping_tasks[task_id]["progress"] = 100
+            scraping_tasks[task_id]["total_products"] = len(all_products)
         
     except Exception as e:
         logging.error(f"Scraping error: {str(e)}")
