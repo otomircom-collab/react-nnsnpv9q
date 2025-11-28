@@ -388,3 +388,183 @@ export const yedekParcaProducts = [
     compatibility: ['Audi A4 B9 (2016-2023)', 'Audi A5 F5 (2016-2023)']
   }
 ];
+
+// Aksesuar Categories & Products
+export const aksesuarCategories = [
+  { id: 1, name: 'İç Aksesuar', slug: 'ic-aksesuar', icon: '🎨', count: 150 },
+  { id: 2, name: 'Dış Aksesuar', slug: 'dis-aksesuar', icon: '✨', count: 120 },
+  { id: 3, name: 'Koltuk Kılıfı', slug: 'koltuk-kilifi', icon: '💺', count: 85 },
+  { id: 4, name: 'Paspas & Bagaj', slug: 'paspas-bagaj', icon: '🧹', count: 95 },
+  { id: 5, name: 'Elektronik', slug: 'elektronik', icon: '📱', count: 110 },
+  { id: 6, name: 'Bakım Ürünleri', slug: 'bakim', icon: '🧼', count: 75 }
+];
+
+export const aksesuarProducts = [
+  {
+    id: 201,
+    name: 'Premium Deri Direksiyon Kılıfı',
+    category: 'ic-aksesuar',
+    price: 189.90,
+    oldPrice: 249.90,
+    discount: 24,
+    image: 'https://images.unsplash.com/photo-1449130015084-2dc0185e9fbc?w=400&h=400&fit=crop',
+    brand: 'Otom',
+    rating: 4.7,
+    reviews: 342,
+    isNew: true
+  },
+  {
+    id: 202,
+    name: 'Araca Özel 3D Paspas Takımı',
+    category: 'paspas-bagaj',
+    price: 425.00,
+    oldPrice: 550.00,
+    discount: 23,
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=400&fit=crop',
+    brand: 'Omsa',
+    rating: 4.9,
+    reviews: 567,
+    isNew: false
+  },
+  {
+    id: 203,
+    name: 'Telefon Tutucu Manyetik',
+    category: 'elektronik',
+    price: 79.90,
+    oldPrice: null,
+    discount: 0,
+    image: 'https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=400&h=400&fit=crop',
+    brand: 'Baseus',
+    rating: 4.6,
+    reviews: 892,
+    isNew: false
+  },
+  {
+    id: 204,
+    name: 'Cam Rüzgarlığı Seti (4 Adet)',
+    category: 'dis-aksesuar',
+    price: 195.00,
+    oldPrice: 245.00,
+    discount: 20,
+    image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&h=400&fit=crop',
+    brand: 'AutoPlus',
+    rating: 4.5,
+    reviews: 234,
+    isNew: true
+  },
+  {
+    id: 205,
+    name: 'Lüks Deri Koltuk Kılıfı Takımı',
+    category: 'koltuk-kilifi',
+    price: 1299.00,
+    oldPrice: 1599.00,
+    discount: 19,
+    image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=400&fit=crop',
+    brand: 'Seintex',
+    rating: 4.8,
+    reviews: 445,
+    isNew: false
+  },
+  {
+    id: 206,
+    name: 'Oto Kokusu Premium Set',
+    category: 'bakim',
+    price: 89.90,
+    oldPrice: null,
+    discount: 0,
+    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&h=400&fit=crop',
+    brand: 'Areon',
+    rating: 4.4,
+    reviews: 678,
+    isNew: false
+  }
+];
+
+// Lastik & Jant Products
+export const lastikProducts = [
+  {
+    id: 301,
+    name: 'Michelin Primacy 4',
+    category: 'yaz',
+    price: 1250.00,
+    oldPrice: 1450.00,
+    discount: 14,
+    image: 'https://images.unsplash.com/photo-1449130015084-2dc0185e9fbc?w=400&h=400&fit=crop',
+    brand: 'Michelin',
+    rating: 4.9,
+    reviews: 1234,
+    size: '205/55 R16',
+    label: 'ÇOK SATAN'
+  },
+  {
+    id: 302,
+    name: 'Bridgestone Turanza T005',
+    category: 'yaz',
+    price: 1180.00,
+    oldPrice: null,
+    discount: 0,
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=400&fit=crop',
+    brand: 'Bridgestone',
+    rating: 4.8,
+    reviews: 987,
+    size: '215/60 R17',
+    label: null
+  },
+  {
+    id: 303,
+    name: 'Continental WinterContact TS870',
+    category: 'kis',
+    price: 1350.00,
+    oldPrice: 1550.00,
+    discount: 13,
+    image: 'https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=400&h=400&fit=crop',
+    brand: 'Continental',
+    rating: 4.9,
+    reviews: 765,
+    size: '205/55 R16',
+    label: 'YENİ'
+  },
+  {
+    id: 304,
+    name: 'Goodyear Vector 4Seasons Gen-3',
+    category: 'dort-mevsim',
+    price: 1420.00,
+    oldPrice: null,
+    discount: 0,
+    image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&h=400&fit=crop',
+    brand: 'Goodyear',
+    rating: 4.7,
+    reviews: 543,
+    size: '225/45 R17',
+    label: '4 MEVSIM'
+  }
+];
+
+export const jantProducts = [
+  {
+    id: 401,
+    name: 'OZ Racing Superturismo GT 17"',
+    price: 3250.00,
+    oldPrice: 3750.00,
+    discount: 13,
+    image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=400&fit=crop',
+    brand: 'OZ Racing',
+    rating: 4.9,
+    reviews: 234,
+    size: '17" x 7.5J',
+    label: 'PREMIUM'
+  },
+  {
+    id: 402,
+    name: 'BBS CH-R 18" Matt Black',
+    price: 4850.00,
+    oldPrice: null,
+    discount: 0,
+    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&h=400&fit=crop',
+    brand: 'BBS',
+    rating: 5.0,
+    reviews: 145,
+    size: '18" x 8J',
+    label: 'YENİ'
+  }
+];
