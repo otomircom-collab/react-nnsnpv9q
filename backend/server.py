@@ -301,7 +301,14 @@ async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool
                     
                 except Exception as page_error:
                     logging.error(f"Error on page {current_page}: {str(page_error)}")
-                    break
+                    # Don't break immediately, try next page
+                    consecutive_empty_pages += 1
+                    if consecutive_empty_pages >= 3:
+                        logging.error(f"3 consecutive errors/empty pages. Stopping.")
+                        break
+                    current_page += 1
+                    await asyncio.sleep(1)
+                    continue
             
             await browser.close()
             
