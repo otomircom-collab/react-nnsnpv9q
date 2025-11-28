@@ -123,7 +123,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
             if current_page == 1:
                 page_url = category_url
             else:
-                page_url = f\"{base_url}/page/{current_page}/\"
+                page_url = f"{base_url}/page/{current_page}/"
             
             # Try to load page
             retry_count = 0
@@ -132,7 +132,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
             
             while retry_count < max_retries and not page_loaded:
                 try:
-                    await page.goto(page_url, wait_until=\"networkidle\", timeout=60000)
+                    await page.goto(page_url, wait_until="networkidle", timeout=60000)
                     page_loaded = True
                 except Exception as e:
                     retry_count += 1
