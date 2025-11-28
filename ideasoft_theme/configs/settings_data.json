@@ -1,0 +1,25 @@
+{
+    "current": {
+        "logo": "images/logo.png",
+        "site_name": "OtoMarketGo",
+        "primary_color": "#FF6200",
+        "showcase_repeat_columns": 4,
+        "hero_slider_status": true,
+        "categories_status": true,
+        "yedek_parca_status": true,
+        "aksesuar_status": true,
+        "jant_lastik_status": true,
+        "ustam_ozel_status": true,
+        "bakim_robotu_status": true,
+        "sigortan_status": true,
+        "aninda_teslimat_status": true,
+        "servis_bulucu_status": true,
+        "footer_text": "Türkiye'nin en güvenilir otomotiv mağazası. Kaliteli parça, hızlı teslimat, güvenli alışveriş.",
+        "footer_phone": "444 0 850",
+        "footer_email": "info@otomarketgo.com",
+        "facebook_url": "",
+        "instagram_url": "",
+        "twitter_url": "",
+        "youtube_url": ""
+    }
+}
