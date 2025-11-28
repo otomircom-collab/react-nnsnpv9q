@@ -13,6 +13,11 @@ import FavoritesPage from "./pages/FavoritesPage";
 import YedekParcaPage from "./pages/YedekParcaPage";
 import AksesuarPage from "./pages/AksesuarPage";
 import JantLastikPage from "./pages/JantLastikPage";
+import UstamOzelPage from "./pages/UstamOzelPage";
+import BakimRobotuPage from "./pages/BakimRobotuPage";
+import SigortanPage from "./pages/SigortanPage";
+import AnindaTeslimatPage from "./pages/AnindaTeslimatPage";
+import ServisBulucuPage from "./pages/ServisBulucuPage";
 
 function App() {
   return (
