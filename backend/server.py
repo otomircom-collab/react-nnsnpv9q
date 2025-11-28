@@ -582,14 +582,14 @@ async def scrape_with_universal_scraper(url: str, task_id: str):
         scraping_tasks[task_id]["progress"] = 100
         
     except Exception as e:
-        logging.error(f\"Universal scraper error: {str(e)}\")
-        scraping_tasks[task_id][\"status\"] = \"failed\"
-        scraping_tasks[task_id][\"error\"] = str(e)
+        logging.error(f"Universal scraper error: {str(e)}")
+        scraping_tasks[task_id]["status"] = "failed"
+        scraping_tasks[task_id]["error"] = str(e)
 
 
-@api_router.post(\"/scrape\", response_model=ScrapeResponse)
+@api_router.post("/scrape", response_model=ScrapeResponse)
 async def scrape_website(request: ScrapeRequest, background_tasks: BackgroundTasks):
-    \"\"\"Start scraping a website - UNIVERSAL SCRAPER\"\"\"
+    """Start scraping a website - UNIVERSAL SCRAPER"""
     task_id = str(uuid.uuid4())
     
     # Use universal scraper by default
@@ -597,8 +597,8 @@ async def scrape_website(request: ScrapeRequest, background_tasks: BackgroundTas
     
     return ScrapeResponse(
         task_id=task_id,
-        status=\"started\",
-        message=\"T\u00fcm site taranmaya ba\u015flat\u0131ld\u0131...\"
+        status="started",
+        message="T\u00fcm site taranmaya ba\u015flat\u0131ld\u0131..."
     )
 
 
