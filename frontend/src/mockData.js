@@ -1,47 +1,64 @@
 // Mock data for automotive parts e-commerce
 
+export const mainCategories = [
+  { name: 'Yedek Parça', path: '/', icon: '🔧' },
+  { name: 'Aksesuar', path: '/aksesuar', icon: '🎨' },
+  { name: 'Jant & Lastik', path: '/jant-lastik', icon: '⚙️' },
+  { name: 'Ustam Özel', path: '/ustam-ozel', icon: '👨‍🔧' },
+  { name: 'Bakım Robotu', path: '/bakim-robotu', icon: '🤖' },
+  { name: 'Sigortan', path: '/sigortan', icon: '🛡️' },
+  { name: 'Anında Teslimat', path: '/aninda-teslimat', icon: '⚡' },
+  { name: 'Servis Bulucu', path: '/servis-bulucu', icon: '📍' }
+];
+
 export const categories = [
   {
     id: 1,
-    name: 'Otomobil',
-    slug: 'otomobil',
-    icon: '🚗',
-    subcategories: ['Fren Sistemi', 'Motor Parçaları', 'Süspansiyon', 'Aydınlatma', 'Filtreler']
+    name: 'Fren Sistemi',
+    slug: 'fren-sistemi',
+    icon: '🛑',
+    parent: 'Yedek Parça',
+    subcategories: ['Fren Balatası', 'Fren Diski', 'Fren Hortumu', 'Fren Kaliperi', 'Fren Merkezi']
   },
   {
     id: 2,
-    name: 'SUV',
-    slug: 'suv',
-    icon: '🚙',
-    subcategories: ['Fren Sistemi', 'Motor Parçaları', 'Süspansiyon', 'Aydınlatma', 'Filtreler']
+    name: 'Motor Parçaları',
+    slug: 'motor-parcalari',
+    icon: '⚙️',
+    parent: 'Yedek Parça',
+    subcategories: ['Buji', 'Triger Seti', 'Krank Mili', 'Silindir Kapağı', 'Supap']
   },
   {
     id: 3,
-    name: 'Ticari Araç',
-    slug: 'ticari-arac',
-    icon: '🚐',
-    subcategories: ['Fren Sistemi', 'Motor Parçaları', 'Süspansiyon', 'Elektrik', 'Filtreler']
+    name: 'Filtreler',
+    slug: 'filtreler',
+    icon: '🔍',
+    parent: 'Yedek Parça',
+    subcategories: ['Hava Filtresi', 'Yağ Filtresi', 'Yakıt Filtresi', 'Polen Filtresi', 'Hidrolik Filtre']
   },
   {
     id: 4,
-    name: 'Motosiklet',
-    slug: 'motosiklet',
-    icon: '🏍️',
-    subcategories: ['Fren Sistemi', 'Motor Parçaları', 'Elektrik', 'Lastik', 'Aksesuar']
+    name: 'Süspansiyon',
+    slug: 'suspansiyon',
+    icon: '🔩',
+    parent: 'Yedek Parça',
+    subcategories: ['Amortisör', 'Rotil', 'Salıncak', 'Bijon', 'Rotbaşı']
   },
   {
     id: 5,
-    name: 'Kamyon',
-    slug: 'kamyon',
-    icon: '🚛',
-    subcategories: ['Fren Sistemi', 'Motor Parçaları', 'Süspansiyon', 'Elektrik', 'Filtreler']
+    name: 'İç Aksesuar',
+    slug: 'ic-aksesuar',
+    icon: '🎨',
+    parent: 'Aksesuar',
+    subcategories: ['Direksiyon Kılıfı', 'Oto Koltuk Kılıfı', 'Paspas', 'Oto Kokusu', 'Telefon Tutucu']
   },
   {
     id: 6,
-    name: 'Traktör',
-    slug: 'traktor',
-    icon: '🚜',
-    subcategories: ['Motor Parçaları', 'Hidrolik Sistem', 'Elektrik', 'Filtreler', 'Aksesuar']
+    name: 'Dış Aksesuar',
+    slug: 'dis-aksesuar',
+    icon: '✨',
+    parent: 'Aksesuar',
+    subcategories: ['Cam Rüzgarlığı', 'Bagaj Taşıyıcı', 'Çamurluk', 'Ayna Kapağı', 'Anten']
   }
 ];
 
