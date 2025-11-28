@@ -163,9 +163,9 @@ function App() {
       <div className="main-content">
         <Card className="scraper-card">
           <CardHeader>
-            <CardTitle>Veri Çekme İşlemi</CardTitle>
+            <CardTitle>Otomatik Site Tarama</CardTitle>
             <CardDescription>
-              Site URL'sini girin ve kategorideki TÜM ürünleri otomatik olarak çekin
+              Sadece site adresini yazın - TÜM kategoriler ve ürünler otomatik çekilir
             </CardDescription>
           </CardHeader>
           <CardContent>
