@@ -19,7 +19,7 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<YedekParcaPage />} />
             <Route path="/kategori/:category" element={<ProductListPage />} />
             <Route path="/urun/:id" element={<ProductDetailPage />} />
             <Route path="/sepet" element={<CartPage />} />
