@@ -54,6 +54,9 @@ class StatusCheckCreate(BaseModel):
 
 class ScrapeRequest(BaseModel):
     url: str
+    scrape_all_categories: bool = False
+    fetch_sku: bool = False
+    only_in_stock: bool = True
 
 
 class Product(BaseModel):
