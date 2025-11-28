@@ -10,6 +10,7 @@ import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import FavoritesPage from "./pages/FavoritesPage";
+import YedekParcaPage from "./pages/YedekParcaPage";
 
 function App() {
   return (
