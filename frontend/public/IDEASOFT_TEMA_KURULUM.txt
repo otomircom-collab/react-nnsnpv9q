@@ -1,0 +1,54 @@
+=================================================================
+OTOMARKETGO - IDEASOFT TEMA KURULUM REHBERİ
+=================================================================
+
+Bu dosyada tema yapısı ve tüm dosya içerikleri bulunmaktadır.
+Aşağıdaki klasör yapısını bilgisayarınızda oluşturun ve dosyaları kopyalayın.
+
+=================================================================
+KLASÖR YAPISI
+=================================================================
+
+otomarketgo_theme/
+├── assets/
+│   ├── images/           (boş klasör - logolarınızı buraya koyun)
+│   ├── javascript/
+│   │   └── theme.js
+│   ├── scss/
+│   │   └── theme.scss
+│   └── uploads/          (boş klasör)
+├── configs/
+│   ├── settings_data.json
+│   └── settings_schema.json
+├── html/
+│   ├── layouts/
+│   │   └── default.twig
+│   ├── snippets/
+│   │   ├── footer.twig
+│   │   ├── header.twig
+│   │   └── scripts.twig
+│   └── templates/
+│       ├── default/
+│       │   └── entry.twig
+│       ├── member/       (boş klasör)
+│       └── product/
+│           └── detail.twig
+└── readme.txt
+
+=================================================================
+
+NOT: Bu dosyayı indirin ve içeriğini okuyun. Her dosyanın içeriği 
+"========== DOSYA: xxx ==========" başlığı altında verilmiştir.
+
+Kurulum için: https://www.ideasoft.com.tr/tema-kurulum-rehberi
+
+=================================================================
+TÜM DOSYALARIN GITHUB LİNKİ
+=================================================================
+
+Tüm dosyalar şu adreste hazır halde:
+/app/ideasoft_theme/
+
+Bilgisayarınızda aynı yapıyı oluşturup zip yapın ve Ideasoft'a yükleyin.
+
+=================================================================
