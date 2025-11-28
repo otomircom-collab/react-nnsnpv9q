@@ -174,7 +174,22 @@ async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool
                         page_url = f"{base_url}/page/{current_page}/"
                     
                     scraping_tasks[task_id]["status"] = f"page_{current_page}"
-                    await page.goto(page_url, wait_until="networkidle", timeout=60000)
+                    
+                    # Try to load page with retry logic
+                    retry_count = 0
+                    max_retries = 3
+                    page_loaded = False
+                    
+                    while retry_count < max_retries and not page_loaded:
+                        try:
+                            await page.goto(page_url, wait_until="networkidle", timeout=90000)
+                            page_loaded = True
+                        except Exception as e:
+                            retry_count += 1
+                            logging.warning(f"Page {current_page} load attempt {retry_count} failed: {str(e)}")
+                            if retry_count >= max_retries:
+                                raise
+                            await asyncio.sleep(2)
                     
                     # Wait for products to load
                     try:
