@@ -252,24 +252,52 @@ async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool
                     scraping_tasks[task_id]["products"] = all_products
                     scraping_tasks[task_id]["total_products"] = len(all_products)
                     
-                    # Update progress
-                    progress = min(int((current_page / max_pages) * 100), 99)
+                    # Update progress (dynamic based on actual pages found)
+                    if current_page <= 10:
+                        progress = min(int((current_page / 10) * 50), 50)
+                    else:
+                        progress = min(50 + int((current_page - 10) / 100 * 49), 99)
                     scraping_tasks[task_id]["progress"] = progress
                     
                     logging.info(f"Page {current_page}: {len(page_products)} products extracted. Total: {len(all_products)}")
                     
                     # Check if there are more pages
                     if len(page_products) == 0:
-                        logging.info(f"No products found on page {current_page}. Stopping.")
+                        consecutive_empty_pages += 1
+                        if consecutive_empty_pages >= 2:
+                            logging.info(f"2 consecutive empty pages found. Stopping at page {current_page}.")
+                            break
+                    else:
+                        consecutive_empty_pages = 0  # Reset counter
+                    
+                    # Check for next page link - IMPORTANT: Always check in HTML
+                    has_next = soup.select_one('a.next.page-numbers, a[rel="next"], .next.page-numbers')
+                    
+                    # Also check if we're on the last page by looking at page numbers
+                    page_numbers = soup.select('.page-numbers')
+                    last_page_num = 1
+                    for pn in page_numbers:
+                        try:
+                            num = int(pn.get_text(strip=True))
+                            if num > last_page_num:
+                                last_page_num = num
+                        except:
+                            pass
+                    
+                    # Stop if no next button AND we're past detected last page
+                    if not has_next and current_page >= last_page_num:
+                        logging.info(f"Reached last page ({last_page_num}). Total products: {len(all_products)}")
                         break
                     
-                    # Check for next page link
-                    has_next = soup.select_one('a.next.page-numbers, a[rel="next"]')
-                    if not has_next and current_page > 1:
-                        logging.info(f"No more pages after page {current_page}. Stopping.")
+                    # Safety check: if we have products but reached max_pages, still continue
+                    if current_page >= max_pages:
+                        logging.info(f"Reached max_pages limit ({max_pages}). Total products: {len(all_products)}")
                         break
                     
                     current_page += 1
+                    
+                    # Small delay between pages to avoid rate limiting
+                    await asyncio.sleep(0.5)
                     
                 except Exception as page_error:
                     logging.error(f"Error on page {current_page}: {str(page_error)}")
