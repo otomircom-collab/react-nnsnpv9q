@@ -11,6 +11,8 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import YedekParcaPage from "./pages/YedekParcaPage";
+import AksesuarPage from "./pages/AksesuarPage";
+import JantLastikPage from "./pages/JantLastikPage";
 
 function App() {
   return (
