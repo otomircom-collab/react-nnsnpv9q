@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Heart, Search, Menu, MapPin } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ShoppingCart, User, Search, MapPin, ChevronRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 
 const Header = () => {
-  const { cartCount, favorites, cartTotal } = useCart();
+  const { cartCount, cartTotal } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+
+  const categories = [
+    { name: 'Yedek Parça', path: '/', icon: '🔧' },
+    { name: 'Aksesuar', path: '/aksesuar', icon: '🎨' },
+    { name: 'Jant & Lastik', path: '/jant-lastik', icon: '⚙️' },
+    { name: 'Ustam Özel', path: '/ustam-ozel', icon: '👨‍🔧' },
+    { name: 'Bakım Robotu', path: '/bakim-robotu', icon: '🤖' },
+    { name: 'Sigortan', path: '/sigortan', icon: '🛡️' },
+    { name: 'Anında Teslimat', path: '/aninda-teslimat', icon: '⚡' },
+    { name: 'Servis Bulucu', path: '/servis-bulucu', icon: '📍' }
+  ];
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -17,91 +29,91 @@ const Header = () => {
     }
   };
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
-      {/* Top Bar */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2">
+      {/* Category Tabs - Just like Migros */}
+      <div className="bg-white border-b">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-6">
-              <span className="flex items-center gap-1">
-                <span>⚡</span>
-                Anında Teslimat
-              </span>
-              <span className="flex items-center gap-1">
-                <span>📦</span>
-                Ücretsiz Kargo 500 TL Üzeri
-              </span>
-              <span className="flex items-center gap-1">
-                <span>🎁</span>
-                Güvenli Alışveriş
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link to="/yardim" className="hover:underline">Yardım</Link>
-              <Link to="/iletisim" className="hover:underline">İletişim</Link>
-            </div>
+          <div className="flex items-center overflow-x-auto">
+            {categories.map((category, index) => (
+              <Link
+                key={index}
+                to={category.path}
+                className={`flex-shrink-0 px-6 py-3 font-semibold text-sm transition-all border-b-2 ${
+                  isActive(category.path)
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-600'
+                    : 'text-gray-700 hover:bg-orange-50 border-transparent hover:border-orange-200'
+                }`}
+              >
+                <span className="mr-2">{category.icon}</span>
+                {category.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
+      {/* Main Header - Logo, Search, Cart */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center gap-6">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-bold text-2xl">
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-bold text-2xl shadow-md hover:shadow-lg transition-shadow">
               OtoDepon
             </div>
           </Link>
 
           {/* Location Selector */}
-          <div className="hidden lg:flex items-center gap-2 px-4 py-2 border rounded-lg hover:border-orange-500 cursor-pointer transition-colors">
-            <MapPin className="w-5 h-5 text-orange-500" />
+          <div className="hidden lg:flex items-center gap-2 px-4 py-2 border rounded-lg hover:border-orange-500 cursor-pointer transition-all group">
+            <MapPin className="w-5 h-5 text-orange-500 group-hover:scale-110 transition-transform" />
             <div className="text-sm">
               <div className="text-gray-500 text-xs">Teslimat Yöntemi</div>
-              <div className="font-semibold">Seç</div>
+              <div className="font-semibold flex items-center gap-1">
+                Belirle <ChevronRight className="w-3 h-3" />
+              </div>
             </div>
           </div>
 
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="flex-1">
-            <div className="flex gap-2">
+            <div className="relative">
               <Input
                 type="text"
-                placeholder="Ürün, marka veya kategori ara..."
+                placeholder="Coca-Cola, Fanta ve Sprite 6×250 ML Çeşitleri 145 TL!"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1"
+                className="w-full pr-12 h-12 text-base"
               />
-              <Button type="submit" className="bg-orange-500 hover:bg-orange-600 px-8">
-                <Search className="w-5 h-5" />
+              <Button 
+                type="submit" 
+                className="absolute right-0 top-0 h-12 bg-orange-500 hover:bg-orange-600 px-6 rounded-l-none"
+              >
+                Ara
               </Button>
             </div>
           </form>
 
           {/* User Actions */}
-          <div className="flex items-center gap-4">
-            <Link to="/favoriler" className="relative hover:text-orange-500 transition-colors">
-              <Heart className="w-6 h-6" />
-              {favorites.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {favorites.length}
-                </span>
-              )}
-            </Link>
-            <Link to="/hesap" className="hover:text-orange-500 transition-colors">
-              <User className="w-6 h-6" />
+          <div className="flex items-center gap-2">
+            <Link to="/hesap">
+              <Button variant="ghost" className="flex flex-col items-center h-auto py-2 px-4 hover:bg-orange-50">
+                <User className="w-6 h-6 mb-1" />
+                <span className="text-xs font-semibold">Üye Ol veya Giriş Yap</span>
+              </Button>
             </Link>
             <Link to="/sepet" className="relative">
-              <Button className="bg-orange-500 hover:bg-orange-600 flex items-center gap-2">
-                <ShoppingCart className="w-5 h-5" />
+              <Button className="bg-orange-500 hover:bg-orange-600 flex items-center gap-3 h-auto py-3 px-6">
+                <ShoppingCart className="w-6 h-6" />
                 <div className="text-left">
-                  <div className="text-xs">Sepetim</div>
-                  <div className="font-bold">{cartTotal.toFixed(2)} TL</div>
+                  <div className="text-xs opacity-90">Sepetim</div>
+                  <div className="font-bold text-base">{cartTotal.toFixed(2)} TL</div>
                 </div>
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-md">
                     {cartCount}
                   </span>
                 )}
@@ -111,28 +123,27 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Navigation Bar */}
+      {/* Sub Navigation - Just like Migros */}
       <div className="bg-gray-50 border-t">
         <div className="container mx-auto px-4">
-          <nav className="flex items-center gap-8 py-3">
-            <Button variant="ghost" className="flex items-center gap-2 font-semibold">
-              <Menu className="w-5 h-5" />
-              Kategoriler
-            </Button>
-            <Link to="/kampanyalar" className="text-sm font-medium hover:text-orange-500 transition-colors">
-              Kampanyalar
+          <nav className="flex items-center gap-1 py-2 overflow-x-auto">
+            <Link to="/goklu-indirimler" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              🔥 GÖKLU İNDİRİMLER
             </Link>
-            <Link to="/yeni-urunler" className="text-sm font-medium hover:text-orange-500 transition-colors">
-              Yeni Ürünler
+            <Link to="/money-indirimli" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              💰 MONEY İNDİRİMLİ
             </Link>
-            <Link to="/cok-satanlar" className="text-sm font-medium hover:text-orange-500 transition-colors">
-              Çok Satanlar
+            <Link to="/ne-pisirsem" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              🍳 NE PİŞİRSEM
             </Link>
-            <Link to="/markalar" className="text-sm font-medium hover:text-orange-500 transition-colors">
-              Markalar
+            <Link to="/firsat-urunleri" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              ⚡ Fırsat Ürünleri
             </Link>
-            <Link to="/magaza" className="text-sm font-medium hover:text-orange-500 transition-colors">
-              Mağazalar
+            <Link to="/yeni-gelenler" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              ✨ Yeni Gelenler
+            </Link>
+            <Link to="/cok-satanlar" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-white rounded transition-all whitespace-nowrap">
+              🏆 Çok Satanlar
             </Link>
           </nav>
         </div>
