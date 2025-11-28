@@ -130,18 +130,16 @@ async def scrape_hangifiltre(url: str, task_id: str):
                     
                     scraping_tasks[task_id]["status"] = f"extracting_page_{current_page}"
                     content = await page.content()
-        
-        # Parse HTML
-        soup = BeautifulSoup(content, 'html.parser')
-        products = []
-        
-        # Find all product items
-        product_items = soup.select('.product-grid-item, .product-item, .product, li.product')
-        
-        scraping_tasks[task_id]["total_products"] = len(product_items)
-        
-        for idx, item in enumerate(product_items):
-            try:
+                    
+                    # Parse HTML
+                    soup = BeautifulSoup(content, 'html.parser')
+                    page_products = []
+                    
+                    # Find all product items on this page
+                    product_items = soup.select('.product-grid-item, .product-item, .product, li.product')
+                    
+                    for item in product_items:
+                        try:
                 # Extract product name
                 name_elem = item.select_one('.woocommerce-loop-product__title, .product-title, h2, h3')
                 name = name_elem.get_text(strip=True) if name_elem else "N/A"
