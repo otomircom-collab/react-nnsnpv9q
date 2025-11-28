@@ -117,41 +117,19 @@ async def scrape_hangifiltre(url: str, task_id: str):
                     
                     scraping_tasks[task_id]["status"] = f"page_{current_page}"
                     await page.goto(page_url, wait_until="networkidle", timeout=60000)
-            
-            # Wait for products to load
-            try:
-                await page.wait_for_selector(".products, .product-grid-item, .product", timeout=10000)
-            except:
-                pass
-            
-            # Scroll multiple times to load all products (lazy loading)
-            scraping_tasks[task_id]["status"] = "loading_products"
-            previous_height = 0
-            scroll_attempts = 0
-            max_scrolls = 8  # Maximum number of scrolls
-            no_change_count = 0
-            
-            while scroll_attempts < max_scrolls and no_change_count < 2:
-                # Scroll to bottom
-                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                await asyncio.sleep(1.5)
-                
-                # Check if page height increased
-                current_height = await page.evaluate("document.body.scrollHeight")
-                
-                if current_height == previous_height:
-                    no_change_count += 1
-                    # No new content loaded after scroll, check pagination
-                    if no_change_count >= 2:
-                        break
-                else:
-                    previous_height = current_height
-                    scroll_attempts += 1
-                    no_change_count = 0
-            
-            scraping_tasks[task_id]["status"] = "extracting_data"
-            content = await page.content()
-            await browser.close()
+                    
+                    # Wait for products to load
+                    try:
+                        await page.wait_for_selector(".products, .product-grid-item, .product", timeout=10000)
+                    except:
+                        pass
+                    
+                    # Quick scroll to load any lazy content
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    await asyncio.sleep(1)
+                    
+                    scraping_tasks[task_id]["status"] = f"extracting_page_{current_page}"
+                    content = await page.content()
         
         # Parse HTML
         soup = BeautifulSoup(content, 'html.parser')
