@@ -159,7 +159,8 @@ async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool
             
             all_products = []
             current_page = 1
-            max_pages = 500  # Limit to 500 pages (500 pages = ~8,000 products max)
+            max_pages = 2000  # Increased limit (2000 pages = ~32,000 products max)
+            consecutive_empty_pages = 0  # Track empty pages
             
             scraping_tasks[task_id]["status"] = "loading_page"
             base_url = url if not url.endswith('/') else url[:-1]
