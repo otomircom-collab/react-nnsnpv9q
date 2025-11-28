@@ -1,0 +1,141 @@
+<header id="header" class="header">
+    {# Top Category Tabs - Migros Style #}
+    <div class="header-category-tabs">
+        <div class="container">
+            <nav class="category-tabs-nav">
+                {% if theme.settings.yedek_parca_status %}
+                <a href="/yedek-parca" class="category-tab {% if site.route.name == 'yedek-parca' %}active{% endif %}">
+                    <span class="tab-icon">🔧</span>
+                    <span class="tab-label">Yedek Parça</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.aksesuar_status %}
+                <a href="/aksesuar" class="category-tab {% if site.route.name == 'aksesuar' %}active{% endif %}">
+                    <span class="tab-icon">🎨</span>
+                    <span class="tab-label">Aksesuar</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.jant_lastik_status %}
+                <a href="/jant-lastik" class="category-tab {% if site.route.name == 'jant-lastik' %}active{% endif %}">
+                    <span class="tab-icon">⚙️</span>
+                    <span class="tab-label">Jant & Lastik</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.ustam_ozel_status %}
+                <a href="/ustam-ozel" class="category-tab {% if site.route.name == 'ustam-ozel' %}active{% endif %}">
+                    <span class="tab-icon">👨‍🔧</span>
+                    <span class="tab-label">Ustam Özel</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.bakim_robotu_status %}
+                <a href="/bakim-robotu" class="category-tab {% if site.route.name == 'bakim-robotu' %}active{% endif %}">
+                    <span class="tab-icon">🤖</span>
+                    <span class="tab-label">Bakım Robotu</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.sigortan_status %}
+                <a href="/sigortan" class="category-tab {% if site.route.name == 'sigortan' %}active{% endif %}">
+                    <span class="tab-icon">🛡️</span>
+                    <span class="tab-label">Sigortan</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.aninda_teslimat_status %}
+                <a href="/aninda-teslimat" class="category-tab {% if site.route.name == 'aninda-teslimat' %}active{% endif %}">
+                    <span class="tab-icon">⚡</span>
+                    <span class="tab-label">Anında Teslimat</span>
+                </a>
+                {% endif %}
+                
+                {% if theme.settings.servis_bulucu_status %}
+                <a href="/servis-bulucu" class="category-tab {% if site.route.name == 'servis-bulucu' %}active{% endif %}">
+                    <span class="tab-icon">📍</span>
+                    <span class="tab-label">Servis Bulucu</span>
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+    
+    {# Main Header #}
+    <div class="header-main">
+        <div class="container">
+            <div class="header-main-inner">
+                {# Logo #}
+                <div class="header-logo">
+                    <a href="{{ site.url }}">
+                        <span class="logo-text">
+                            <span class="logo-text-main">OtoMarket</span>
+                            <span class="logo-text-accent">Go</span>
+                        </span>
+                    </a>
+                </div>
+                
+                {# Search Bar #}
+                <div class="header-search">
+                    <form action="{{ site.url }}/arama" method="get" class="search-form">
+                        <input type="text" name="q" placeholder="Ürün, marka veya kategori ara..." class="search-input">
+                        <button type="submit" class="search-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                            Ara
+                        </button>
+                    </form>
+                </div>
+                
+                {# User Actions #}
+                <div class="header-actions">
+                    <a href="{{ site.url }}/uye-ol" class="header-action-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span class="action-label">Üye Ol veya Giriş Yap</span>
+                    </a>
+                    
+                    <a href="{{ site.url }}/sepet" class="header-cart-button">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                        <div class="cart-info">
+                            <span class="cart-label">Sepetim</span>
+                            <span class="cart-total">{{ cart.total | price }} TL</span>
+                        </div>
+                        {% if cart.itemCount > 0 %}
+                        <span class="cart-count">{{ cart.itemCount }}</span>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {# Sub Navigation #}
+    <div class="header-subnav">
+        <div class="container">
+            <nav class="subnav-menu">
+                <a href="/kampanyalar" class="subnav-item">
+                    <span>🔥</span> GÖKLU İNDİRİMLER
+                </a>
+                <a href="/firsat-urunleri" class="subnav-item">
+                    <span>⚡</span> Fırsat Ürünleri
+                </a>
+                <a href="/yeni-gelenler" class="subnav-item">
+                    <span>✨</span> Yeni Gelenler
+                </a>
+                <a href="/cok-satanlar" class="subnav-item">
+                    <span>🏆</span> Çok Satanlar
+                </a>
+            </nav>
+        </div>
+    </div>
+</header>
