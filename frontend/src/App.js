@@ -174,7 +174,7 @@ function App() {
                 <Input
                   data-testid="url-input"
                   type="text"
-                  placeholder="https://hangifiltre.com/kategori/..."
+                  placeholder="https://hangifiltre.com veya https://example.com"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleScrape()}
@@ -185,6 +185,7 @@ function App() {
                   onClick={handleScrape}
                   disabled={loading || (status && status !== "completed" && status !== "failed")}
                   size="lg"
+                  className="scrape-main-btn"
                 >
                   {loading ? (
                     <>
@@ -194,22 +195,16 @@ function App() {
                   ) : (
                     <>
                       <Search className="mr-2 h-4 w-4" />
-                      {scrapeAllCategories ? "TÜM KATEGORİLERİ TARA" : "Veri Çek"}
+                      TÜM SİTEYİ TARA
                     </>
                   )}
                 </Button>
               </div>
               
-              <div className="checkbox-group">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={scrapeAllCategories}
-                    onChange={(e) => setScrapeAllCategories(e.target.checked)}
-                    disabled={loading || (status && status !== "completed" && status !== "failed")}
-                  />
-                  <span>Tüm alt kategorileri otomatik tara (Binlerce ürün)</span>
-                </label>
+              <div className="info-box">
+                <p>🚀 <strong>Otomatik Tarama:</strong> Tüm kategoriler, sayfa sayfa, binlerce ürün otomatik çekilir</p>
+                <p>⚡ <strong>Evrensel:</strong> Hangi e-ticaret sitesini girseniz çalışır</p>
+                <p>📊 <strong>hangifiltre.com:</strong> ~40,000 ürün (15-30 dakika)</p>
               </div>
             </div>
 
