@@ -62,8 +62,9 @@ const Header = () => {
         <div className="flex items-center gap-6">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-bold text-2xl shadow-md hover:shadow-lg transition-shadow">
-              OtoDepon
+            <div className="flex items-center gap-1 px-4 py-2 hover:opacity-90 transition-opacity">
+              <span className="text-3xl font-black text-gray-900 tracking-tight">OtoMarket</span>
+              <span className="text-3xl font-black text-orange-500 tracking-tight">Go</span>
             </div>
           </Link>
 
