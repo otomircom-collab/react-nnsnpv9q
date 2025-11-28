@@ -22,6 +22,8 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<YedekParcaPage />} />
+            <Route path="/aksesuar" element={<AksesuarPage />} />
+            <Route path="/jant-lastik" element={<JantLastikPage />} />
             <Route path="/kategori/:category" element={<ProductListPage />} />
             <Route path="/urun/:id" element={<ProductDetailPage />} />
             <Route path="/sepet" element={<CartPage />} />
