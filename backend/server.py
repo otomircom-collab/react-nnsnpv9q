@@ -372,7 +372,14 @@ async def scrape_website(request: ScrapeRequest, background_tasks: BackgroundTas
     task_id = str(uuid.uuid4())
     
     # Start scraping in background
-    background_tasks.add_task(scrape_hangifiltre, request.url, task_id)
+    background_tasks.add_task(
+        scrape_hangifiltre, 
+        request.url, 
+        task_id, 
+        request.scrape_all_categories,
+        request.fetch_sku,
+        request.only_in_stock
+    )
     
     return ScrapeResponse(
         task_id=task_id,
