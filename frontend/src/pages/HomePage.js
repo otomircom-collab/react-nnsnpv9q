@@ -98,18 +98,19 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Vehicle Categories */}
+      {/* Product Categories */}
       <div className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-gray-900">Araç Kategorileri</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Kategoriler</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
             <Link key={category.id} to={`/kategori/${category.slug}`}>
-              <Card className="hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
+              <Card className="hover:shadow-lg transition-all hover:scale-105 cursor-pointer border-2 hover:border-orange-500">
                 <CardContent className="p-6 text-center">
-                  <div className="text-6xl mb-4">{category.icon}</div>
-                  <h3 className="font-semibold text-lg">{category.name}</h3>
+                  <div className="text-5xl mb-3">{category.icon}</div>
+                  <h3 className="font-semibold text-sm">{category.name}</h3>
+                  <p className="text-xs text-gray-500 mt-1">{category.subcategories.length} alt kategori</p>
                 </CardContent>
               </Card>
             </Link>
