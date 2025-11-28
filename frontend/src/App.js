@@ -101,16 +101,36 @@ function App() {
   };
 
   const getStatusBadge = () => {
+    // Handle page-specific statuses
+    if (status && status.startsWith('page_')) {
+      const pageNum = status.split('_')[1];
+      return (
+        <Badge variant="default" className="ml-2">
+          Sayfa {pageNum} işleniyor
+        </Badge>
+      );
+    }
+    
+    if (status && status.startsWith('extracting_page_')) {
+      const pageNum = status.split('_')[2];
+      return (
+        <Badge variant="default" className="ml-2">
+          Sayfa {pageNum} çekiliyor
+        </Badge>
+      );
+    }
+    
     const statusMap = {
       started: { label: "Başlatıldı", variant: "default" },
       loading_page: { label: "Sayfa Yükleniyor", variant: "default" },
+      loading_products: { label: "Ürünler Yükleniyor", variant: "default" },
       extracting_data: { label: "Veri Çekiliyor", variant: "default" },
       processing: { label: "İşleniyor", variant: "default" },
       completed: { label: "Tamamlandı", variant: "success" },
       failed: { label: "Başarısız", variant: "destructive" }
     };
 
-    const statusInfo = statusMap[status] || { label: "Bilinmiyor", variant: "secondary" };
+    const statusInfo = statusMap[status] || { label: "İşleniyor", variant: "default" };
     
     return (
       <Badge variant={statusInfo.variant} className="ml-2">
