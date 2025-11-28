@@ -147,7 +147,86 @@ async def scrape_hangifiltre(url: str, task_id: str, scrape_all_categories: bool
             "progress": 0,
             "total_products": 0,
             "products": [],
-            "error": None
+            "error": None,
+            "message": "Başlatılıyor..."
+        }
+        
+        # If scrape_all_categories is True, discover and scrape all categories
+        if scrape_all_categories:
+            scraping_tasks[task_id]["status"] = "discovering_categories"
+            scraping_tasks[task_id]["message"] = "Kategoriler keşfediliyor..."
+            
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(
+                    headless=True,
+                    args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+                )
+                page = await browser.new_page()
+                
+                # Get all main categories
+                await page.goto(url, wait_until="networkidle", timeout=60000)
+                await asyncio.sleep(1)
+                
+                content = await page.content()
+                soup = BeautifulSoup(content, 'html.parser')
+                
+                categories = []
+                category_items = soup.select('.product-category')
+                
+                for item in category_items:
+                    link_elem = item.select_one('a')
+                    name_elem = item.select_one('h2, h3')
+                    
+                    if link_elem and name_elem:
+                        cat_url = link_elem.get('href', '')
+                        cat_name = name_elem.get_text(strip=True)
+                        
+                        if cat_url and cat_name:
+                            categories.append({'name': cat_name, 'url': cat_url})
+                
+                logging.info(f"Found {len(categories)} categories to scrape")
+                scraping_tasks[task_id]["message"] = f"{len(categories)} kategori bulundu"
+                
+                # Scrape each category
+                all_category_products = []
+                
+                for idx, category in enumerate(categories, 1):
+                    try:
+                        scraping_tasks[task_id]["status"] = f"category_{idx}"
+                        scraping_tasks[task_id]["message"] = f"Kategori {idx}/{len(categories)}: {category['name']}"
+                        scraping_tasks[task_id]["progress"] = int((idx / len(categories)) * 100)
+                        
+                        # Scrape this category
+                        cat_products = await scrape_single_category(
+                            page, category['url'], category['name'], task_id
+                        )
+                        
+                        all_category_products.extend(cat_products)
+                        scraping_tasks[task_id]["products"] = all_category_products
+                        scraping_tasks[task_id]["total_products"] = len(all_category_products)
+                        
+                        logging.info(f"Category {category['name']}: {len(cat_products)} products. Total: {len(all_category_products)}")
+                        
+                    except Exception as e:
+                        logging.error(f"Error scraping category {category['name']}: {str(e)}")
+                        continue
+                
+                await browser.close()
+                
+                scraping_tasks[task_id]["status"] = "completed"
+                scraping_tasks[task_id]["progress"] = 100
+                scraping_tasks[task_id]["message"] = f"Tamamlandı: {len(all_category_products)} ürün"
+                
+            return
+        
+        # Original single category scraping logic
+        scraping_tasks[task_id] = {
+            "status": "processing",
+            "progress": 0,
+            "total_products": 0,
+            "products": [],
+            "error": None,
+            "message": "Başlatılıyor..."
         }
         
         async with async_playwright() as p:
