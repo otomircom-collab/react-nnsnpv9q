@@ -86,8 +86,11 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <div>
-              © 2024 OtoDepon. Tüm hakları saklıdır.
+            <div className="flex items-center gap-1">
+              © 2024 
+              <span className="font-bold text-white">OtoMarket</span>
+              <span className="font-bold text-orange-500">Go</span>
+              . Tüm hakları saklıdır.
             </div>
             <div className="flex gap-6">
               <Link to="/kullanim-kosullari" className="hover:text-orange-500 transition-colors">Kullanım Koşulları</Link>
