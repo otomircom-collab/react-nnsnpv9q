@@ -102,7 +102,7 @@ async def scrape_hangifiltre(url: str, task_id: str):
             
             all_products = []
             current_page = 1
-            max_pages = 100  # Limit to 100 pages to avoid timeout (100 pages = ~1,600 products)
+            max_pages = 500  # Limit to 500 pages (500 pages = ~8,000 products max)
             
             scraping_tasks[task_id]["status"] = "loading_page"
             base_url = url if not url.endswith('/') else url[:-1]
