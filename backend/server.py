@@ -105,14 +105,40 @@ async def scrape_hangifiltre(url: str, task_id: str):
             
             # Wait for products to load
             try:
-                await page.wait_for_selector(".products", timeout=10000)
+                await page.wait_for_selector(".products, .product-grid-item, .product", timeout=10000)
             except:
                 pass
             
-            # Scroll to load all products
-            for _ in range(3):
-                await page.evaluate("window.scrollBy(0, document.body.scrollHeight)")
-                await asyncio.sleep(1)
+            # Scroll multiple times to load all products (lazy loading)
+            scraping_tasks[task_id]["status"] = "loading_products"
+            previous_height = 0
+            scroll_attempts = 0
+            max_scrolls = 20  # Maximum number of scrolls
+            
+            while scroll_attempts < max_scrolls:
+                # Scroll to bottom
+                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                await asyncio.sleep(2)
+                
+                # Check if page height increased
+                current_height = await page.evaluate("document.body.scrollHeight")
+                
+                if current_height == previous_height:
+                    # No new content loaded, try pagination
+                    try:
+                        # Look for "next page" or "load more" buttons
+                        next_button = await page.query_selector('a.next, button.load-more, .pagination .next, a[rel="next"]')
+                        if next_button:
+                            await next_button.click()
+                            await asyncio.sleep(3)
+                            previous_height = 0  # Reset to continue checking
+                        else:
+                            break  # No more content
+                    except:
+                        break
+                else:
+                    previous_height = current_height
+                    scroll_attempts += 1
             
             scraping_tasks[task_id]["status"] = "extracting_data"
             content = await page.content()
