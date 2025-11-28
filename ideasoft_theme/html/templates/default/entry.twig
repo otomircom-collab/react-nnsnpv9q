@@ -1,0 +1,356 @@
+{% extends 'html/layouts/default.twig' %}
+
+{% block content %}
+<div class="home-page">
+    {# Hero Slider #}
+    {% if theme.settings.hero_slider_status %}
+    <section class="hero-slider">
+        <div class="slider-container">
+            <div class="slide active" style="background: linear-gradient(135deg, #FF6200 0%, #FF8A00 100%);">
+                <div class="container">
+                    <div class="slide-content">
+                        <h2 class="slide-title">İlk Siparişe Özel</h2>
+                        <h3 class="slide-subtitle">500 TL İndirim</h3>
+                        <p class="slide-desc">İlk vereceğiniz özel sipariş için 1500 TL ve üzeri sepette geçerlidir</p>
+                        <a href="/kampanyalar" class="btn btn-white">Hemen Al</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    
+    {# Vehicle Categories #}
+    {% if theme.settings.categories_status %}
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Kategoriler</h2>
+            <div class="categories-grid">
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">🔧</div>
+                    <h3 class="category-name">Fren Sistemi</h3>
+                    <p class="category-count">250+ ürün</p>
+                </a>
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">⚙️</div>
+                    <h3 class="category-name">Motor Parçaları</h3>
+                    <p class="category-count">450+ ürün</p>
+                </a>
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">🔍</div>
+                    <h3 class="category-name">Filtreler</h3>
+                    <p class="category-count">180+ ürün</p>
+                </a>
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">🔩</div>
+                    <h3 class="category-name">Süspansiyon</h3>
+                    <p class="category-count">320+ ürün</p>
+                </a>
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">💡</div>
+                    <h3 class="category-name">Aydınlatma</h3>
+                    <p class="category-count">150+ ürün</p>
+                </a>
+                <a href="/yedek-parca" class="category-card">
+                    <div class="category-icon">🔌</div>
+                    <h3 class="category-name">Elektrik</h3>
+                    <p class="category-count">280+ ürün</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    
+    {# Featured Products #}
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Fırsat Ürünleri</h2>
+                <a href="/kampanyalar" class="view-all">Tümünü Gör →</a>
+            </div>
+            <div class="products-grid">
+                {% for product in showcase.items | slice(0, 8) %}
+                <div class="product-card">
+                    <div class="product-image-wrapper">
+                        <a href="{{ product.url }}">
+                            <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                        </a>
+                        {% if product.discount > 0 %}
+                        <div class="product-badge discount">-%{{ product.discount }}</div>
+                        {% endif %}
+                        <button class="favorite-btn" data-product-id="{{ product.id }}">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">{{ product.brand }}</div>
+                        <h3 class="product-name">
+                            <a href="{{ product.url }}">{{ product.name }}</a>
+                        </h3>
+                        <div class="product-rating">
+                            <span class="stars">⭐ 4.8</span>
+                            <span class="reviews">(124)</span>
+                        </div>
+                        <div class="product-price-wrapper">
+                            <span class="product-price">{{ product.price | price }} TL</span>
+                            {% if product.oldPrice %}
+                            <span class="product-old-price">{{ product.oldPrice | price }} TL</span>
+                            {% endif %}
+                        </div>
+                        <button class="add-to-cart-btn btn btn-primary" data-product-id="{{ product.id }}">
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    {# Features #}
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Esneklik Ödeme İmkanları</h3>
+                    <p>Kredi kartına taksit seçenekleri</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>İstediğin Saatte Teslimat</h3>
+                    <p>Hızlı ve güvenli teslimat</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Uzman Montaj Hizmeti</h3>
+                    <p>Profesyonel teknik destek</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>OtoPuan Kazanırsın</h3>
+                    <p>Her alışverişte puan kazan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block page_styles %}
+<style>
+.hero-slider {
+    height: 600px;
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.slider-container .slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.slide-content {
+    color: white;
+}
+
+.slide-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.slide-subtitle {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.slide-desc {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-white {
+    background: white;
+    color: #FF6200;
+    padding: 1rem 3rem;
+    font-size: 1.25rem;
+}
+
+.categories-section {
+    padding: 3rem 0;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.category-card {
+    background: white;
+    padding: 2rem 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.category-card:hover {
+    border-color: #FF6200;
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.category-name {
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 0.5rem;
+}
+
+.category-count {
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+.featured-products {
+    padding: 3rem 0;
+    background: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.view-all {
+    color: #FF6200;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-image-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.product-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #DC2626;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.product-brand {
+    font-size: 0.75rem;
+    color: #FF6200;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-name a {
+    font-weight: 600;
+    color: #1F2937;
+    text-decoration: none;
+}
+
+.product-rating {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.product-price-wrapper {
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FF6200;
+}
+
+.product-old-price {
+    font-size: 0.875rem;
+    color: #9CA3AF;
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+}
+
+.features-section {
+    padding: 3rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+</style>
+{% endblock %}
