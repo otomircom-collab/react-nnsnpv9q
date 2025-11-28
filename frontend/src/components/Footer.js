@@ -9,8 +9,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-lg font-bold text-xl inline-block mb-4">
-              OtoDepon
+            <div className="flex items-center gap-1 mb-4">
+              <span className="text-2xl font-black text-white tracking-tight">OtoMarket</span>
+              <span className="text-2xl font-black text-orange-500 tracking-tight">Go</span>
             </div>
             <p className="text-sm mb-4">
               Türkiye'nin en güvenilir otomotiv mağazası. Kaliteli parça, hızlı teslimat, güvenli alışveriş.
