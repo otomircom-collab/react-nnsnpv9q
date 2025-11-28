@@ -46,28 +46,44 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Slider */}
-      <div className="relative h-[500px] overflow-hidden">
+      {/* Hero Slider - Migros Style */}
+      <div className="relative h-[600px] overflow-hidden bg-gray-100">
         {sliderItems.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-500 ${
+            className={`absolute inset-0 transition-opacity duration-700 ${
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
-            style={{ backgroundColor: slide.backgroundColor }}
+            style={{ 
+              background: `linear-gradient(135deg, ${slide.backgroundColor} 0%, ${slide.backgroundColor}ee 100%)`
+            }}
           >
             <div className="container mx-auto px-4 h-full">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
-                <div className="text-white space-y-6">
-                  <h2 className="text-5xl font-bold">{slide.title}</h2>
-                  <h3 className="text-7xl font-extrabold">{slide.subtitle}</h3>
-                  <p className="text-xl">{slide.description}</p>
-                  <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 text-lg px-8 py-6">
+                <div className="text-white space-y-8 z-10">
+                  <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                    {slide.title}
+                  </div>
+                  <h2 className="text-7xl font-black leading-tight drop-shadow-lg">
+                    {slide.subtitle}
+                  </h2>
+                  <p className="text-2xl font-medium opacity-90 max-w-lg">
+                    {slide.description}
+                  </p>
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-orange-600 hover:bg-gray-50 text-xl font-bold px-12 py-8 rounded-xl shadow-2xl hover:shadow-3xl transition-all hover:scale-105"
+                  >
                     {slide.buttonText}
                   </Button>
                 </div>
-                <div className="hidden lg:flex items-center justify-center">
-                  <img src={slide.image} alt={slide.title} className="max-h-[400px] object-contain rounded-lg shadow-2xl" />
+                <div className="hidden lg:flex items-center justify-center relative">
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl rounded-3xl"></div>
+                  <img 
+                    src={slide.image} 
+                    alt={slide.title} 
+                    className="relative max-h-[500px] object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500" 
+                  />
                 </div>
               </div>
             </div>
@@ -75,26 +91,30 @@ const HomePage = () => {
         ))}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+          className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 z-20"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-7 h-7 text-orange-500" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+          className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 z-20"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-7 h-7 text-orange-500" />
         </button>
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
           {sliderItems.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                index === currentSlide ? 'bg-white w-8' : 'bg-white/50'
+              className={`h-3 rounded-full transition-all ${
+                index === currentSlide ? 'bg-white w-12' : 'bg-white/50 w-3 hover:bg-white/80'
               }`}
             />
           ))}
+        </div>
+        {/* Slide Counter */}
+        <div className="absolute top-8 right-8 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg font-bold text-gray-800 z-20">
+          {currentSlide + 1} / {sliderItems.length}
         </div>
       </div>
 
