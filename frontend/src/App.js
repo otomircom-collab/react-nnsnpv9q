@@ -21,6 +21,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [scrapeAllCategories, setScrapeAllCategories] = useState(false);
 
   useEffect(() => {
     let interval;
