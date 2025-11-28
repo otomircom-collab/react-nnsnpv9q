@@ -189,7 +189,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
                     page_products.append(product)
                     
                 except Exception as e:
-                    logging.error(f\"Error extracting product: {str(e)}\")
+                    logging.error(f"Error extracting product: {str(e)}")
                     continue
             
             if len(page_products) == 0:
@@ -201,7 +201,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
                 all_products.extend(page_products)
             
             # Check for next page
-            has_next = soup.select_one('a.next.page-numbers, a[rel=\"next\"]')
+            has_next = soup.select_one('a.next.page-numbers, a[rel="next"]')
             if not has_next and current_page > 1:
                 break
             
@@ -209,7 +209,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
             await asyncio.sleep(0.3)
             
         except Exception as e:
-            logging.error(f\"Error on page {current_page}: {str(e)}\")
+            logging.error(f"Error on page {current_page}: {str(e)}")
             consecutive_empty_pages += 1
             if consecutive_empty_pages >= 3:
                 break
