@@ -1,0 +1,166 @@
+{
+    "theme_version": 2,
+    "group": {
+        "type": "tab",
+        "values": [
+            {
+                "name": "Genel Ayarlar",
+                "settings": {
+                    "logo": {
+                        "type": "image",
+                        "default_value": "images/logo.png",
+                        "filename": "logo",
+                        "label": "Logo",
+                        "info": "Logo boyutu 182x119px olmalıdır"
+                    },
+                    "site_name": {
+                        "type": "text",
+                        "default_value": "OtoMarketGo",
+                        "label": "Site Adı",
+                        "info": ""
+                    },
+                    "primary_color": {
+                        "type": "color",
+                        "default_value": "#FF6200",
+                        "label": "Ana Renk (Turuncu)",
+                        "info": "Site genelinde kullanılacak ana renk"
+                    },
+                    "showcase_repeat_columns": {
+                        "type": "select",
+                        "default_value": 4,
+                        "options": [
+                            {"label": "2", "value": 2},
+                            {"label": "3", "value": 3},
+                            {"label": "4", "value": 4},
+                            {"label": "5", "value": 5}
+                        ],
+                        "label": "Ürün Gösterim Sütun Sayısı",
+                        "info": ""
+                    }
+                }
+            },
+            {
+                "name": "Ana Sayfa",
+                "settings": {
+                    "hero_slider_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Ana Sayfa Slider Aktif",
+                        "info": ""
+                    },
+                    "categories_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Kategoriler Bölümü Aktif",
+                        "info": ""
+                    }
+                }
+            },
+            {
+                "name": "Kategoriler",
+                "settings": {
+                    "yedek_parca_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Yedek Parça Kategorisi Aktif",
+                        "info": ""
+                    },
+                    "aksesuar_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Aksesuar Kategorisi Aktif",
+                        "info": ""
+                    },
+                    "jant_lastik_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Jant & Lastik Kategorisi Aktif",
+                        "info": ""
+                    },
+                    "ustam_ozel_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Ustam Özel Kategorisi Aktif",
+                        "info": ""
+                    },
+                    "bakim_robotu_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Bakım Robotu Aktif",
+                        "info": ""
+                    },
+                    "sigortan_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Sigortan Kategorisi Aktif",
+                        "info": ""
+                    },
+                    "aninda_teslimat_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Anında Teslimat Aktif",
+                        "info": ""
+                    },
+                    "servis_bulucu_status": {
+                        "type": "checkbox",
+                        "default_value": true,
+                        "label": "Servis Bulucu Aktif",
+                        "info": ""
+                    }
+                }
+            },
+            {
+                "name": "Footer",
+                "settings": {
+                    "footer_text": {
+                        "type": "textarea",
+                        "default_value": "Türkiye'nin en güvenilir otomotiv mağazası",
+                        "label": "Footer Açıklama",
+                        "info": ""
+                    },
+                    "footer_phone": {
+                        "type": "text",
+                        "default_value": "444 0 850",
+                        "label": "Telefon",
+                        "info": ""
+                    },
+                    "footer_email": {
+                        "type": "text",
+                        "default_value": "info@otomarketgo.com",
+                        "label": "E-posta",
+                        "info": ""
+                    }
+                }
+            },
+            {
+                "name": "Sosyal Medya",
+                "settings": {
+                    "facebook_url": {
+                        "type": "text",
+                        "default_value": "",
+                        "label": "Facebook URL",
+                        "info": ""
+                    },
+                    "instagram_url": {
+                        "type": "text",
+                        "default_value": "",
+                        "label": "Instagram URL",
+                        "info": ""
+                    },
+                    "twitter_url": {
+                        "type": "text",
+                        "default_value": "",
+                        "label": "Twitter URL",
+                        "info": ""
+                    },
+                    "youtube_url": {
+                        "type": "text",
+                        "default_value": "",
+                        "label": "YouTube URL",
+                        "info": ""
+                    }
+                }
+            }
+        ]
+    }
+}
