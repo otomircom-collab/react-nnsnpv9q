@@ -139,7 +139,7 @@ function App() {
           <CardHeader>
             <CardTitle>Veri Çekme İşlemi</CardTitle>
             <CardDescription>
-              Site URL'sini girin ve ürün verilerini çekin
+              Site URL'sini girin ve kategorideki TÜM ürünleri otomatik olarak çekin
             </CardDescription>
           </CardHeader>
           <CardContent>
