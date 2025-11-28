@@ -109,6 +109,116 @@ async def fetch_product_sku(page, product_url: str) -> str:
         return "N/A"
 
 
+async def scrape_single_category(page, category_url: str, category_name: str, task_id: str) -> list:
+    """Scrape all products from a single category"""
+    all_products = []
+    current_page = 1
+    max_pages = 2000
+    consecutive_empty_pages = 0
+    
+    base_url = category_url.rstrip('/')
+    
+    while current_page <= max_pages:
+        try:
+            if current_page == 1:
+                page_url = category_url
+            else:
+                page_url = f\"{base_url}/page/{current_page}/\"
+            
+            # Try to load page
+            retry_count = 0
+            max_retries = 2
+            page_loaded = False
+            
+            while retry_count < max_retries and not page_loaded:
+                try:
+                    await page.goto(page_url, wait_until=\"networkidle\", timeout=60000)
+                    page_loaded = True
+                except Exception as e:
+                    retry_count += 1
+                    if retry_count >= max_retries:
+                        raise
+                    await asyncio.sleep(1)
+            
+            await page.evaluate(\"window.scrollTo(0, document.body.scrollHeight)\")
+            await asyncio.sleep(0.5)
+            
+            content = await page.content()
+            soup = BeautifulSoup(content, 'html.parser')
+            
+            page_products = []
+            product_items = soup.select('.product-grid-item, .product-item, .product, li.product')
+            
+            for item in product_items:
+                try:
+                    name_elem = item.select_one('.woocommerce-loop-product__title, .product-title, h2, h3')
+                    name = name_elem.get_text(strip=True) if name_elem else None
+                    
+                    if not name:
+                        continue
+                    
+                    link_elem = item.select_one('a')
+                    product_url = link_elem.get('href', '') if link_elem else ''
+                    
+                    price_elem = item.select_one('.price ins .amount, .price .amount, .price')
+                    price = \"N/A\"
+                    if price_elem:
+                        price_text = price_elem.get_text(strip=True)
+                        price = price_text.split(':')[-1].strip() if ':' in price_text else price_text
+                    
+                    old_price_elem = item.select_one('.price del .amount')
+                    old_price = \"N/A\"
+                    if old_price_elem:
+                        old_price_text = old_price_elem.get_text(strip=True)
+                        old_price = old_price_text.split(':')[-1].strip() if ':' in old_price_text else old_price_text
+                    
+                    img_elem = item.select_one('img')
+                    image_url = img_elem.get('src', img_elem.get('data-src', 'N/A')) if img_elem else \"N/A\"
+                    
+                    product = Product(
+                        name=name,
+                        brand=category_name,
+                        sku=\"N/A\",
+                        price=price,
+                        old_price=old_price,
+                        stock_status=\"Stokta\",
+                        image_url=image_url,
+                        product_url=product_url
+                    )
+                    
+                    page_products.append(product)
+                    
+                except Exception as e:
+                    logging.error(f\"Error extracting product: {str(e)}\")
+                    continue
+            
+            if len(page_products) == 0:
+                consecutive_empty_pages += 1
+                if consecutive_empty_pages >= 2:
+                    break
+            else:
+                consecutive_empty_pages = 0
+                all_products.extend(page_products)
+            
+            # Check for next page
+            has_next = soup.select_one('a.next.page-numbers, a[rel=\"next\"]')
+            if not has_next and current_page > 1:
+                break
+            
+            current_page += 1
+            await asyncio.sleep(0.3)
+            
+        except Exception as e:
+            logging.error(f\"Error on page {current_page}: {str(e)}\")
+            consecutive_empty_pages += 1
+            if consecutive_empty_pages >= 3:
+                break
+            current_page += 1
+            continue
+    
+    return all_products
+
+
 async def get_all_categories(page, base_url: str) -> list:
     """Get all sub-categories from a category page"""
     try:
