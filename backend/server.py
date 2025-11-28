@@ -167,21 +167,21 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
                         price = price_text.split(':')[-1].strip() if ':' in price_text else price_text
                     
                     old_price_elem = item.select_one('.price del .amount')
-                    old_price = \"N/A\"
+                    old_price = "N/A"
                     if old_price_elem:
                         old_price_text = old_price_elem.get_text(strip=True)
                         old_price = old_price_text.split(':')[-1].strip() if ':' in old_price_text else old_price_text
                     
                     img_elem = item.select_one('img')
-                    image_url = img_elem.get('src', img_elem.get('data-src', 'N/A')) if img_elem else \"N/A\"
+                    image_url = img_elem.get('src', img_elem.get('data-src', 'N/A')) if img_elem else "N/A"
                     
                     product = Product(
                         name=name,
                         brand=category_name,
-                        sku=\"N/A\",
+                        sku="N/A",
                         price=price,
                         old_price=old_price,
-                        stock_status=\"Stokta\",
+                        stock_status="Stokta",
                         image_url=image_url,
                         product_url=product_url
                     )
