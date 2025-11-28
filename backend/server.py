@@ -161,7 +161,7 @@ async def scrape_single_category(page, category_url: str, category_name: str, ta
                     product_url = link_elem.get('href', '') if link_elem else ''
                     
                     price_elem = item.select_one('.price ins .amount, .price .amount, .price')
-                    price = \"N/A\"
+                    price = "N/A"
                     if price_elem:
                         price_text = price_elem.get_text(strip=True)
                         price = price_text.split(':')[-1].strip() if ':' in price_text else price_text
