@@ -1,0 +1,15 @@
+=== OTOMARKETGO IDEASOFT TEMA - TÜM DOSYALAR ===
+
+Tüm dosyaları kopyalayıp bilgisayarınızda oluşturun.
+Sonra zip yapıp Ideasoft'a yükleyin.
+
+Dosyalar hazır: /app/otomarketgo_ideasoft_theme.zip
+
+Bu dosyayı şuradan indirebilirsiniz (eğer deployment varsa):
+https://[sizin-domain]/otomarketgo_ideasoft_theme.zip
+
+VEYA
+
+Bu projeyi GitHub'a push edin, oradan indirin.
+
+İletişim: Emergent AI - OtoMarketGo Projesi
