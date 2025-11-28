@@ -556,25 +556,49 @@ async def get_status_checks():
     return status_checks
 
 
-@api_router.post("/scrape", response_model=ScrapeResponse)
+async def scrape_with_universal_scraper(url: str, task_id: str):
+    """Use universal scraper for ANY website"""
+    try:
+        scraper = UniversalScraper(task_id, scraping_tasks)
+        products = await scraper.scrape_entire_website(url)
+        
+        # Convert to Product models
+        product_models = []
+        for p in products:
+            product_models.append(Product(
+                name=p.get('name', 'N/A'),
+                brand=p.get('brand', 'N/A'),
+                sku=p.get('sku', 'N/A'),
+                price=p.get('price', 'N/A'),
+                old_price=p.get('old_price', 'N/A'),
+                stock_status=p.get('stock_status', 'Stokta'),
+                image_url=p.get('image_url', 'N/A'),
+                product_url=p.get('product_url', 'N/A')
+            ))
+        
+        scraping_tasks[task_id]["products"] = product_models
+        scraping_tasks[task_id]["total_products"] = len(product_models)
+        scraping_tasks[task_id]["status"] = "completed"
+        scraping_tasks[task_id]["progress"] = 100
+        
+    except Exception as e:
+        logging.error(f\"Universal scraper error: {str(e)}\")
+        scraping_tasks[task_id][\"status\"] = \"failed\"
+        scraping_tasks[task_id][\"error\"] = str(e)
+
+
+@api_router.post(\"/scrape\", response_model=ScrapeResponse)
 async def scrape_website(request: ScrapeRequest, background_tasks: BackgroundTasks):
-    """Start scraping a website"""
+    \"\"\"Start scraping a website - UNIVERSAL SCRAPER\"\"\"
     task_id = str(uuid.uuid4())
     
-    # Start scraping in background
-    background_tasks.add_task(
-        scrape_hangifiltre, 
-        request.url, 
-        task_id, 
-        request.scrape_all_categories,
-        request.fetch_sku,
-        request.only_in_stock
-    )
+    # Use universal scraper by default
+    background_tasks.add_task(scrape_with_universal_scraper, request.url, task_id)
     
     return ScrapeResponse(
         task_id=task_id,
-        status="started",
-        message="Scraping başlatıldı"
+        status=\"started\",
+        message=\"T\u00fcm site taranmaya ba\u015flat\u0131ld\u0131...\"
     )
 
 
