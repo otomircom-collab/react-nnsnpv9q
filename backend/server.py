@@ -113,32 +113,26 @@ async def scrape_hangifiltre(url: str, task_id: str):
             scraping_tasks[task_id]["status"] = "loading_products"
             previous_height = 0
             scroll_attempts = 0
-            max_scrolls = 20  # Maximum number of scrolls
+            max_scrolls = 8  # Maximum number of scrolls
+            no_change_count = 0
             
-            while scroll_attempts < max_scrolls:
+            while scroll_attempts < max_scrolls and no_change_count < 2:
                 # Scroll to bottom
                 await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                await asyncio.sleep(2)
+                await asyncio.sleep(1.5)
                 
                 # Check if page height increased
                 current_height = await page.evaluate("document.body.scrollHeight")
                 
                 if current_height == previous_height:
-                    # No new content loaded, try pagination
-                    try:
-                        # Look for "next page" or "load more" buttons
-                        next_button = await page.query_selector('a.next, button.load-more, .pagination .next, a[rel="next"]')
-                        if next_button:
-                            await next_button.click()
-                            await asyncio.sleep(3)
-                            previous_height = 0  # Reset to continue checking
-                        else:
-                            break  # No more content
-                    except:
+                    no_change_count += 1
+                    # No new content loaded after scroll, check pagination
+                    if no_change_count >= 2:
                         break
                 else:
                     previous_height = current_height
                     scroll_attempts += 1
+                    no_change_count = 0
             
             scraping_tasks[task_id]["status"] = "extracting_data"
             content = await page.content()
