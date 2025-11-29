@@ -188,11 +188,19 @@ const Layout = ({ children }) => {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
           <div className="flex items-center justify-end gap-3 h-12">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded" data-testid="order-tracking">
+            <button 
+              onClick={() => setOrderTrackingModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded" 
+              data-testid="order-tracking"
+            >
               <Package className="w-4 h-4" />
               Sipariş Takibi
             </button>
-            <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 rounded" data-testid="account-link">
+            <button 
+              onClick={() => setAuthModalOpen(true)}
+              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 rounded" 
+              data-testid="account-link"
+            >
               <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs">👤</div>
               Üye Ol veya Giriş Yap
             </button>
