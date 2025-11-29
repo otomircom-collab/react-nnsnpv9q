@@ -7,7 +7,15 @@ import { toast } from 'sonner';
 
 const AuthModal = ({ open, onOpenChange }) => {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [registerData, setRegisterData] = useState({ name: '', email: '', password: '', phone: '' });
+  const [registerData, setRegisterData] = useState({ 
+    name: '', 
+    email: '', 
+    password: '', 
+    phone: '', 
+    accountType: 'bireysel',
+    companyName: '',
+    taxNumber: ''
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
