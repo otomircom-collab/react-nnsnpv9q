@@ -87,15 +87,15 @@ const Layout = ({ children }) => {
           <div className="flex items-stretch gap-0 overflow-x-auto scrollbar-hide">
             <Link
               to="/yedek-parca"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/yedek-parca'
-                  ? 'text-orange-600 border-orange-600 bg-orange-50' 
-                  : 'text-gray-700 border-transparent hover:text-orange-600 hover:bg-orange-50'
+                  ? 'bg-white text-orange-600 shadow-sm' 
+                  : 'text-gray-700 hover:bg-white hover:text-orange-600'
               }`}
               data-testid="tab-spare-parts"
             >
-              <span className="text-lg">🔧</span>
-              Yedek Parça
+              <span className="text-3xl">🔧</span>
+              <span>Yedek Parça</span>
             </Link>
             <Link
               to="/aksesuar"
