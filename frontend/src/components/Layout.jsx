@@ -74,37 +74,108 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 1. EN ÜSTTE - KATEGORİLER YATAY SCROLL (Migros Tarzı) */}
-      <div className="bg-white border-b border-gray-200">
+      {/* 1. EN ÜSTTE - SAYFA GEÇİŞLERİ (Migros'taki gibi TAB'lar) */}
+      <div className="bg-gray-50 border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-2.5">
+          <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
+            <Link
+              to="/"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/' 
+                  ? 'text-orange-500 border-orange-500 bg-white' 
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-home"
+            >
+              OTOMARKETGO
+            </Link>
             <Link
               to="/yedek-parca"
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-900 hover:text-orange-500 whitespace-nowrap flex-shrink-0"
-              data-testid="categories-menu"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/yedek-parca'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-spare-parts"
             >
-              <Menu className="w-4 h-4" />
-              KATEGORİLER
+              Yedek Parça
             </Link>
-            <Link to="/" className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              <Star className="w-4 h-4" />
-              FAVORİLERİM
+            <Link
+              to="/aksesuar"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/aksesuar'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-accessories"
+            >
+              Aksesuar
             </Link>
-            <Link to="/" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              KAMPANYALAR
+            <Link
+              to="/jant-lastik"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/jant-lastik'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-tires"
+            >
+              Jant & Lastik
             </Link>
-            <Link to="/bakim-robotu" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              MİGROSKOP
+            <Link
+              to="/ustam-ozel"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/ustam-ozel'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-b2b"
+            >
+              Ustam Özel
             </Link>
-            <Link to="/aninda-teslimat" className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              <Tag className="w-4 h-4" />
-              ÇOKLU İNDİRİMLER
+            <Link
+              to="/bakim-robotu"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/bakim-robotu'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-bot"
+            >
+              Bakım Robotu
             </Link>
-            <Link to="/" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              MONEY İNDİRİMLİ
+            <Link
+              to="/sigortan"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/sigortan'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-insurance"
+            >
+              Sigortan
             </Link>
-            <Link to="/servis-bulucu" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
-              NE PİŞİRSEM?
+            <Link
+              to="/aninda-teslimat"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/aninda-teslimat'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-quick-delivery"
+            >
+              Anında Teslimat
+            </Link>
+            <Link
+              to="/servis-bulucu"
+              className={`px-6 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-2 ${
+                location.pathname === '/servis-bulucu'
+                  ? 'text-orange-500 border-orange-500 bg-white'
+                  : 'text-gray-700 border-transparent hover:text-orange-500 hover:bg-white'
+              }`}
+              data-testid="tab-service-finder"
+            >
+              Servis Bulucu
             </Link>
           </div>
         </div>
