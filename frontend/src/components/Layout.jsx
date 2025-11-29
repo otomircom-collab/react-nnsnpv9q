@@ -178,40 +178,34 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* 2. ORTA - Logo + Sipariş Takibi + Giriş */}
+      {/* 2. ORTA - Sipariş Takibi + Giriş */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-end gap-3 h-12">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded" data-testid="order-tracking">
+              <Package className="w-4 h-4" />
+              Sipariş Takibi
+            </button>
+            <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 rounded" data-testid="account-link">
+              <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs">👤</div>
+              Üye Ol veya Giriş Yap
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. ALT - Logo + Teslimat + Arama + Sepet */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-[1400px] mx-auto px-4 py-3">
+          <div className="flex items-center gap-4">
             {/* Logo */}
-            <Link to="/" className="flex items-center" data-testid="logo-link">
-              <div className="bg-orange-500 px-5 py-2.5 -ml-4">
+            <Link to="/" className="flex items-center flex-shrink-0" data-testid="logo-link">
+              <div className="bg-orange-500 px-5 py-2.5 rounded">
                 <div className="text-white text-lg font-bold leading-tight">OTOMARKET</div>
                 <div className="text-white text-xs font-medium leading-tight">GO</div>
               </div>
             </Link>
 
-            {/* Boş alan */}
-            <div className="flex-1"></div>
-
-            {/* Sağ Taraf */}
-            <div className="flex items-center gap-3">
-              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded" data-testid="order-tracking">
-                <Package className="w-4 h-4" />
-                Sipariş Takibi
-              </button>
-              <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 rounded" data-testid="account-link">
-                <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs">👤</div>
-                Üye Ol veya Giriş Yap
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. ALT - Teslimat + Arama + Sepet */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-[1400px] mx-auto px-4 py-3">
-          <div className="flex items-center gap-3">
             {/* Teslimat Yöntemi */}
             <button className="flex items-center gap-2 px-3 py-2.5 border border-gray-300 rounded-lg hover:border-orange-500 transition-colors whitespace-nowrap">
               <MapPin className="w-4 h-4 text-gray-600" />
