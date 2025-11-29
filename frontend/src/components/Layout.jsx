@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, Search, MapPin, ChevronDown, Star, Tag, Menu } from 'lucide-react';
+import { ShoppingCart, Search, MapPin, ChevronDown, Star, Tag, Menu, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
@@ -73,44 +73,87 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* TOP BAND - Logo + Alt Markalar + Giriş */}
+    <div className="min-h-screen bg-white">
+      {/* 1. EN ÜSTTE - KATEGORİLER YATAY SCROLL (Migros Tarzı) */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-2.5">
+            <Link
+              to="/yedek-parca"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-900 hover:text-orange-500 whitespace-nowrap flex-shrink-0"
+              data-testid="categories-menu"
+            >
+              <Menu className="w-4 h-4" />
+              KATEGORİLER
+            </Link>
+            <Link to="/" className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              <Star className="w-4 h-4" />
+              FAVORİLERİM
+            </Link>
+            <Link to="/" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              KAMPANYALAR
+            </Link>
+            <Link to="/bakim-robotu" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              MİGROSKOP
+            </Link>
+            <Link to="/aninda-teslimat" className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              <Tag className="w-4 h-4" />
+              ÇOKLU İNDİRİMLER
+            </Link>
+            <Link to="/" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              MONEY İNDİRİMLİ
+            </Link>
+            <Link to="/servis-bulucu" className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap flex-shrink-0">
+              NE PİŞİRSEM?
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. ORTA - Logo + Alt Markalar + Sipariş Takibi + Giriş */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center bg-orange-500 px-6 py-4 -ml-4" data-testid="logo-link">
-              <div className="text-white">
-                <div className="text-2xl font-bold leading-tight">OTOMARKET</div>
-                <div className="text-xl font-bold leading-tight">GO</div>
+            <Link to="/" className="flex items-center" data-testid="logo-link">
+              <div className="bg-orange-500 px-5 py-2.5 -ml-4">
+                <div className="text-white text-lg font-bold leading-tight">Migros</div>
+                <div className="text-white text-xs font-medium leading-tight">Sanalmarket</div>
               </div>
             </Link>
 
-            {/* Alt Markalar - Migros Tarzı */}
-            <div className="hidden lg:flex items-center gap-6 flex-1 ml-8">
-              <Link to="/aninda-teslimat" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
-                Anında Teslimat
+            {/* Alt Markalar */}
+            <div className="hidden lg:flex items-center gap-1 flex-1 ml-4">
+              <Link to="/aninda-teslimat" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
+                <div className="text-center">
+                  <div className="font-bold">Migros Hemen</div>
+                </div>
               </Link>
-              <Link to="/aksesuar" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
-                Aksesuar
+              <Link to="/aksesuar" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
+                <div className="text-center">
+                  <div className="font-bold">Migros Yemek</div>
+                </div>
               </Link>
-              <Link to="/jant-lastik" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
-                Jant & Lastik
+              <Link to="/jant-lastik" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
+                <div className="text-center">
+                  <div className="font-bold">Migros Ekstra</div>
+                </div>
               </Link>
-              <Link to="/ustam-ozel" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
-                Ustam Özel
+              <Link to="/ustam-ozel" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
+                <div className="text-center">
+                  <div className="font-bold">Mion</div>
+                </div>
               </Link>
             </div>
 
-            {/* Sağ Taraf - Sipariş Takibi + Giriş */}
-            <div className="flex items-center gap-4">
-              <button className="text-sm text-gray-700 hover:text-orange-500" data-testid="order-tracking">
+            {/* Sağ Taraf */}
+            <div className="flex items-center gap-3">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded" data-testid="order-tracking">
+                <Package className="w-4 h-4" />
                 Sipariş Takibi
               </button>
-              <button className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-orange-500" data-testid="account-link">
-                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span className="text-xs">👤</span>
-                </div>
+              <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 rounded" data-testid="account-link">
+                <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs">👤</div>
                 Üye Ol veya Giriş Yap
               </button>
             </div>
@@ -118,88 +161,52 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* MIDDLE BAND - Teslimat + Arama */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-[1400px] mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
+      {/* 3. ALT - Teslimat + Arama + Sepet */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-[1400px] mx-auto px-4 py-3">
+          <div className="flex items-center gap-3">
             {/* Teslimat Yöntemi */}
-            <button className="flex items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg hover:border-orange-500 transition-colors">
-              <MapPin className="w-5 h-5 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Teslimat Yöntemini Belirle</span>
-              <ChevronDown className="w-4 h-4 text-gray-600" />
+            <button className="flex items-center gap-2 px-3 py-2.5 border border-gray-300 rounded-lg hover:border-orange-500 transition-colors whitespace-nowrap">
+              <MapPin className="w-4 h-4 text-gray-600" />
+              <span className="text-xs font-medium text-gray-700">Teslimat Yöntemini Belirle</span>
+              <ChevronDown className="w-3 h-3 text-gray-600" />
             </button>
 
             {/* Arama */}
-            <form onSubmit={handleSearch} className="flex-1 flex items-center gap-2">
+            <form onSubmit={handleSearch} className="flex-1 flex items-center">
               <div className="relative flex-1">
                 <Input
                   type="text"
                   placeholder="Ürün, marka veya OEM kodu ara..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-12 pl-4 pr-4 text-base border-2 border-gray-300 focus:border-orange-500 rounded-lg"
+                  className="w-full h-11 pl-4 pr-4 text-sm border-2 border-gray-300 focus:border-orange-500 rounded-l-lg"
                   data-testid="search-input"
                 />
               </div>
               <Button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 h-12 text-base font-medium rounded-lg"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 h-11 text-sm font-semibold rounded-r-lg rounded-l-none"
                 data-testid="search-button"
               >
                 Ara
               </Button>
             </form>
-          </div>
-        </div>
-      </div>
 
-      {/* BOTTOM BAND - Kategoriler + Sepet */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
-            {/* Sol - Kategoriler */}
-            <div className="flex items-center gap-6">
-              <Link
-                to="/yedek-parca"
-                className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-orange-500"
-                data-testid="categories-menu"
-              >
-                <Menu className="w-4 h-4" />
-                KATEGORİLER
-              </Link>
-              <Link to="/" className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-500">
-                <Star className="w-4 h-4" />
-                FAVORİLERİM
-              </Link>
-              <Link to="/" className="text-sm font-medium text-gray-700 hover:text-orange-500">
-                KAMPANYALAR
-              </Link>
-              <Link to="/bakim-robotu" className="text-sm font-medium text-gray-700 hover:text-orange-500">
-                BAKIM ROBOTU
-              </Link>
-              <Link to="/aninda-teslimat" className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-500">
-                <Tag className="w-4 h-4" />
-                HIZLI TESLİMAT
-              </Link>
-              <Link to="/sigortan" className="text-sm font-medium text-gray-700 hover:text-orange-500">
-                SİGORTAN
-              </Link>
-            </div>
-
-            {/* Sağ - Sepet */}
+            {/* Sepet */}
             <Link to="/sepet" data-testid="cart-link">
-              <div className="flex items-center gap-3 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors">
+              <div className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:border-orange-500 transition-colors">
                 <div className="relative">
-                  <ShoppingCart className="w-6 h-6 text-gray-700" />
+                  <ShoppingCart className="w-5 h-5 text-gray-700" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold" data-testid="cart-count">
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold" data-testid="cart-count">
                       {cartCount}
                     </span>
                   )}
                 </div>
-                <div>
-                  <div className="text-xs text-gray-600">Sepetim</div>
-                  <div className="text-sm font-bold text-gray-900">
+                <div className="text-left">
+                  <div className="text-[10px] text-gray-600 leading-tight">Sepetim</div>
+                  <div className="text-xs font-bold text-gray-900 leading-tight">
                     {cartTotal.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
                   </div>
                 </div>
@@ -210,7 +217,7 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Main Content */}
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen bg-gray-50">{children}</main>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 mt-16">
