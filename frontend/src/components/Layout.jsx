@@ -147,20 +147,20 @@ const Layout = ({ children }) => {
           </div>
         </div>
 
-        {/* Categories Navigation - Migros Style */}
-        <nav className="bg-gray-100 border-t border-gray-200">
+        {/* Categories Navigation - Migros Style - Yatay Scroll */}
+        <nav className="bg-white border-t border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4">
-            <div className={`lg:flex lg:items-center lg:justify-between py-3 gap-2 ${mobileMenuOpen ? 'block' : 'hidden lg:flex'}`}>
+            <div className="flex items-center overflow-x-auto gap-1 py-2 scrollbar-hide">
               {categories.map((category) => {
                 const isActive = location.pathname === getCategoryLink(category.id);
                 return (
                   <Link
                     key={category.id}
                     to={getCategoryLink(category.id)}
-                    className={`block lg:inline-block px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`flex-shrink-0 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-all ${
                       isActive
-                        ? 'bg-orange-500 text-white'
-                        : 'text-gray-700 hover:bg-orange-100 hover:text-orange-600'
+                        ? 'bg-orange-500 text-white rounded-md'
+                        : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md'
                     }`}
                     data-testid={`category-${category.id}`}
                   >
