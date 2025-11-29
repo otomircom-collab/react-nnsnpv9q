@@ -19,6 +19,16 @@ const Layout = ({ children }) => {
   useEffect(() => {
     fetchCategories();
     fetchCartCount();
+    
+    // Listen for cart updates
+    const handleCartUpdate = () => {
+      fetchCartCount();
+    };
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
   }, []);
 
   const fetchCategories = async () => {
