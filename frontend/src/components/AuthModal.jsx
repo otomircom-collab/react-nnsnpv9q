@@ -85,8 +85,60 @@ const AuthModal = ({ open, onOpenChange }) => {
           
           <TabsContent value="register">
             <form onSubmit={handleRegister} className="space-y-4 mt-4">
+              {/* Hesap Tipi */}
               <div>
-                <label className="block text-sm font-medium mb-2">Ad Soyad</label>
+                <label className="block text-sm font-medium mb-2">Hesap Tipi</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRegisterData({ ...registerData, accountType: 'bireysel' })}
+                    className={`px-4 py-3 rounded-lg border-2 font-medium transition-all ${
+                      registerData.accountType === 'bireysel'
+                        ? 'border-orange-500 bg-orange-50 text-orange-700'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    👤 Bireysel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRegisterData({ ...registerData, accountType: 'kurumsal' })}
+                    className={`px-4 py-3 rounded-lg border-2 font-medium transition-all ${
+                      registerData.accountType === 'kurumsal'
+                        ? 'border-orange-500 bg-orange-50 text-orange-700'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    🏢 Kurumsal
+                  </button>
+                </div>
+              </div>
+
+              {registerData.accountType === 'kurumsal' && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Şirket Adı *</label>
+                    <Input
+                      placeholder="Şirket adınız"
+                      value={registerData.companyName}
+                      onChange={(e) => setRegisterData({ ...registerData, companyName: e.target.value })}
+                      className="h-11"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Vergi Numarası *</label>
+                    <Input
+                      placeholder="Vergi numaranız"
+                      value={registerData.taxNumber}
+                      onChange={(e) => setRegisterData({ ...registerData, taxNumber: e.target.value })}
+                      className="h-11"
+                    />
+                  </div>
+                </>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium mb-2">{registerData.accountType === 'kurumsal' ? 'Yetkili Kişi' : 'Ad Soyad'}</label>
                 <Input
                   placeholder="Adınız Soyadınız"
                   value={registerData.name}
@@ -128,7 +180,7 @@ const AuthModal = ({ open, onOpenChange }) => {
                 type="submit"
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white h-11 font-semibold"
               >
-                Üye Ol
+                {registerData.accountType === 'kurumsal' ? 'Kurumsal Üyelik Oluştur' : 'Üye Ol'}
               </Button>
             </form>
           </TabsContent>
