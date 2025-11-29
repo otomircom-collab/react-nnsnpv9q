@@ -83,3 +83,13 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #E55A2B;
 }
+
+/* Hide scrollbar for kategori navigation - Migros style */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
