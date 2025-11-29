@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
-import ProductCard from '@/components/ProductCard';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -11,157 +12,211 @@ const API = `${BACKEND_URL}/api`;
 
 const TiresWheelsPage = () => {
   const [products, setProducts] = useState([]);
-  const [servicePoints, setServicePoints] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [productType, setProductType] = useState('Lastik');
-  const [season, setSeason] = useState('all');
+  const [searchType, setSearchType] = useState('ebat');
+
+  const tireBrands = [
+    { name: 'Michelin', logo: 'https://cdn.lastikcim.com.tr/images/media/desenler/67c9b00fcb273/michelin-366x80_20250306052415.png' },
+    { name: 'Goodyear', logo: 'GY' },
+    { name: 'Continental', logo: 'CT' },
+    { name: 'Pirelli', logo: 'PR' },
+    { name: 'Bridgestone', logo: 'BS' },
+    { name: 'Lassa', logo: 'LS' },
+    { name: 'Petlas', logo: 'PT' },
+    { name: 'Hankook', logo: 'HK' }
+  ];
 
   useEffect(() => {
     fetchProducts();
-    fetchServicePoints();
-  }, [productType, season]);
+  }, []);
 
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      let url = `${API}/tires-wheels?type=${productType}`;
-      if (season !== 'all') {
-        url += `&season=${season}`;
-      }
-      
-      const response = await axios.get(url);
-      
+      const response = await axios.get(`${API}/tires-wheels`);
       if (response.data.length === 0) {
-        setProducts(generateMockTiresWheels());
+        setProducts(generateMockTires());
       } else {
         setProducts(response.data);
       }
     } catch (error) {
-      console.error('Ürünler yüklenemedi:', error);
-      setProducts(generateMockTiresWheels());
+      setProducts(generateMockTires());
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchServicePoints = async () => {
-    try {
-      const response = await axios.get(`${API}/service-points`);
-      if (response.data.length === 0) {
-        setServicePoints(generateMockServicePoints());
-      } else {
-        setServicePoints(response.data);
-      }
-    } catch (error) {
-      setServicePoints(generateMockServicePoints());
-    }
-  };
-
-  const generateMockTiresWheels = () => {
-    const brands = ['Michelin', 'Bridgestone', 'Continental', 'Pirelli', 'Goodyear', 'Lassa'];
-    const sizes = ['195/65R15', '205/55R16', '225/45R17', '235/40R18'];
-    const seasons = ['Yaz', 'Kış', '4 Mevsim'];
-    
-    return Array.from({ length: 12 }, (_, index) => ({
-      id: `tire-${index + 1}`,
-      name: `${brands[index % brands.length]} ${productType} ${sizes[index % sizes.length]}`,
-      brand: brands[index % brands.length],
-      type: productType,
-      size: sizes[index % sizes.length],
-      season: seasons[index % seasons.length],
-      price: Math.random() * 2000 + 500,
-      stock: Math.floor(Math.random() * 40) + 4,
-      image_url: productType === 'Lastik'
-        ? `https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=300&h=300&fit=crop&q=80`
-        : `https://images.unsplash.com/photo-1617886322168-72b886573c35?w=300&h=300&fit=crop&q=80`,
-      description: `${brands[index % brands.length]} ${seasons[index % seasons.length]} lasik`,
-      rating: 4.6
-    }));
-  };
-
-  const generateMockServicePoints = () => {
-    const points = [
-      { name: 'Lastik Merkezi Kadıköy', city: 'İstanbul', lat: 40.9905, lon: 29.0267 },
-      { name: 'Express Lastik Beşiktaş', city: 'İstanbul', lat: 41.0422, lon: 29.0076 },
-      { name: 'Pro Lastik Ankara', city: 'Ankara', lat: 39.9334, lon: 32.8597 },
-      { name: 'Hızlı Montaj İzmir', city: 'İzmir', lat: 38.4237, lon: 27.1428 }
+  const generateMockTires = () => {
+    const brands = ['Michelin', 'Goodyear', 'Continental', 'Lassa', 'Bridgestone', 'Petlas', 'Hankook', 'Pirelli'];
+    const tires = [
+      { name: 'Michelin Alpin 7 205/55R16 91T', price: 4740, oldPrice: 6004, discount: 21, season: '❄️', oem: false },
+      { name: 'Goodyear Eagle Sport 4S 225/45R17 94W', price: 3696, oldPrice: null, discount: 0, season: '🌦️', oem: false },
+      { name: 'Lassa Snoways 4 205/55R16 91H', price: 3355, oldPrice: null, discount: 0, season: '❄️', oem: false },
+      { name: 'Continental AllSeason 215/50R17 95V', price: 6708, oldPrice: null, discount: 0, season: '🌦️', oem: false },
+      { name: 'Bridgestone Blizzak LM001 RFT 205/55R16', price: 4000, oldPrice: 5054, discount: 20, season: '❄️', oem: true },
+      { name: 'Hankook Kinergy 4S2 205/55R16 94H', price: 3602, oldPrice: null, discount: 0, season: '🌦️', oem: false },
+      { name: 'Petlas Snowmaster 2 205/55R16 91H', price: 2540, oldPrice: null, discount: 0, season: '❄️', oem: false },
+      { name: 'Continental WinterContact 195/60R18 96H', price: 7799, oldPrice: null, discount: 0, season: '❄️', oem: false }
     ];
 
-    return points.map((point, index) => ({
-      id: `service-${index + 1}`,
-      name: point.name,
-      address: `${point.city} Merkez`,
-      city: point.city,
-      phone: '0850 123 45 67',
-      latitude: point.lat,
-      longitude: point.lon,
-      rating: 4.5 + Math.random() * 0.5,
-      services: ['Lastik Montaj', 'Balans', 'Rot Balans', 'Lastik Onarım'],
-      working_hours: '09:00 - 19:00'
+    return tires.map((tire, i) => ({
+      id: `tire-${i + 1}`,
+      name: tire.name,
+      brand: tire.name.split(' ')[0],
+      price: tire.price,
+      oldPrice: tire.oldPrice,
+      discount: tire.discount,
+      season: tire.season,
+      oem: tire.oem,
+      stock: Math.floor(Math.random() * 100) + 20,
+      image_url: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=400&h=400&fit=crop',
+      rating: 4.5 + Math.random() * 0.4,
+      reviewCount: Math.floor(Math.random() * 200) + 10,
+      fuel: ['A', 'B', 'C', 'D'][Math.floor(Math.random() * 4)],
+      wet: ['A', 'B', 'C'][Math.floor(Math.random() * 3)],
+      noise: 69 + Math.floor(Math.random() * 6)
     }));
   };
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2" data-testid="page-title">Jant & Lastik</h1>
-          <p className="text-gray-600">1000+ montaj noktası ile güvenli alışveriş</p>
-        </div>
+      <div className="bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Hero */}
+          <div className="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl p-12 text-white mb-8">
+            <h1 className="text-4xl font-bold mb-3">Jant & Lastik</h1>
+            <p className="text-xl text-white/90">81 ilde 1000+ montaj noktası - Ücretsiz kargo - Peşin fiyatına taksit</p>
+          </div>
 
-        <Tabs value={productType} onValueChange={setProductType} className="mb-8">
-          <TabsList className="grid w-full max-w-md grid-cols-2" data-testid="product-type-tabs">
-            <TabsTrigger value="Lastik">Lastik</TabsTrigger>
-            <TabsTrigger value="Jant">Jant</TabsTrigger>
-          </TabsList>
-        </Tabs>
+          {/* Arama Tabs */}
+          <Card className="p-6 mb-8">
+            <Tabs value={searchType} onValueChange={setSearchType}>
+              <TabsList className="grid w-full max-w-2xl grid-cols-5 mb-6">
+                <TabsTrigger value="ebat">Ebata Göre</TabsTrigger>
+                <TabsTrigger value="arac">Araca Göre</TabsTrigger>
+                <TabsTrigger value="jant">Jant Ara</TabsTrigger>
+                <TabsTrigger value="yag">Motor Yağı</TabsTrigger>
+                <TabsTrigger value="zincir">Kar Zinciri</TabsTrigger>
+              </TabsList>
 
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-          <div className="grid md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Mevsim</label>
-              <Select value={season} onValueChange={setSeason}>
-                <SelectTrigger data-testid="season-select">
-                  <SelectValue placeholder="Mevsim seçin" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tüm Mevsimler</SelectItem>
-                  <SelectItem value="Yaz">Yaz</SelectItem>
-                  <SelectItem value="Kış">Kış</SelectItem>
-                  <SelectItem value="4 Mevsim">4 Mevsim</SelectItem>
-                </SelectContent>
-              </Select>
+              <TabsContent value="ebat">
+                <div className="grid md:grid-cols-5 gap-4">
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Taban</option></select>
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Yanak</option></select>
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Jant</option></select>
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Mevsim</option></select>
+                  <Button className="bg-orange-500 hover:bg-orange-600 h-12 font-semibold">Arama Yap</Button>
+                </div>
+              </TabsContent>
+              <TabsContent value="arac">
+                <div className="grid md:grid-cols-4 gap-4">
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Marka</option></select>
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Model</option></select>
+                  <select className="h-12 px-3 border-2 border-gray-300 rounded-lg"><option>Yıl</option></select>
+                  <Button className="bg-orange-500 hover:bg-orange-600 h-12 font-semibold">Arama Yap</Button>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </Card>
+
+          {/* Lastik Markaları */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-4">Lastik Markaları</h2>
+            <div className="flex gap-4 overflow-x-auto pb-4">
+              {tireBrands.map((brand, i) => (
+                <button key={i} className="flex-shrink-0 bg-white border border-gray-200 rounded-lg px-6 py-3 hover:shadow-md transition-all">
+                  <div className="w-24 h-12 flex items-center justify-center font-bold text-gray-700">{brand.logo.length < 5 ? brand.logo : brand.name}</div>
+                </button>
+              ))}
             </div>
           </div>
-        </div>
 
-        {loading ? (
-          <div className="text-center py-12" data-testid="loading-spinner">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+          {/* Özellikler Banner */}
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
+              <div className="text-2xl mb-2">📦</div>
+              <h3 className="font-bold text-sm">Kolay İade</h3>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
+              <div className="text-2xl mb-2">🚚</div>
+              <h3 className="font-bold text-sm">Ücretsiz Kargo</h3>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
+              <div className="text-2xl mb-2">💳</div>
+              <h3 className="font-bold text-sm">Peşin Fiyatına Taksit</h3>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
+              <div className="text-2xl mb-2">🔧</div>
+              <h3 className="font-bold text-sm">1000+ Montaj Noktası</h3>
+            </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} category="tires-wheels" />
-            ))}
-          </div>
-        )}
 
-        {/* Service Points */}
-        <div className="bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl p-8 text-white mb-8">
-          <h2 className="text-3xl font-bold mb-6" data-testid="service-points-title">
-            <MapPin className="inline w-8 h-8 mr-2" />
-            Montaj Noktaları
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {servicePoints.slice(0, 4).map((point) => (
-              <div key={point.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-4" data-testid={`service-point-${point.id}`}>
-                <h3 className="font-bold mb-2">{point.name}</h3>
-                <p className="text-sm text-white/80 mb-1">{point.address}</p>
-                <p className="text-sm text-white/80 mb-1">📞 {point.phone}</p>
-                <p className="text-sm text-yellow-300">⭐ {point.rating.toFixed(1)}</p>
+          {/* Otomobil Lastikleri */}
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Otomobil Lastikleri</h2>
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
               </div>
-            ))}
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {products.map((product) => (
+                  <div key={product.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all">
+                    <div className="relative">
+                      <div className="absolute top-2 left-2 flex gap-1">
+                        <span className="text-xl">{product.season}</span>
+                        <span className="text-xl">🚗</span>
+                      </div>
+                      <img src={product.image_url} alt={product.name} className="w-full h-48 object-contain p-4" />
+                      {product.discount > 0 && (
+                        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-%{product.discount}</div>
+                      )}
+                      {product.oem && (
+                        <div className="absolute bottom-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">Orijinal Ekipman</div>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <img src="https://via.placeholder.com/80x20?text=Michelin" alt={product.brand} className="h-5 mb-2" />
+                      <div className="flex gap-2 mb-2 text-xs">
+                        <div className="bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold">{product.fuel}</div>
+                        <div className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold">{product.wet}</div>
+                        <div className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded font-bold">{product.noise}dB</div>
+                      </div>
+                      <h3 className="font-semibold text-sm text-gray-900 mb-2 line-clamp-2 min-h-[40px]">{product.name}</h3>
+                      <p className="text-xs text-gray-600 mb-2">Üretim: 2024 - Ücretsiz Kargo</p>
+                      <div className="mb-3">
+                        {product.oldPrice && (
+                          <p className="text-xs text-gray-400 line-through">{product.oldPrice.toFixed(2)} TL</p>
+                        )}
+                        <p className="text-xl font-bold text-gray-900">{product.price.toFixed(2)} TL</p>
+                      </div>
+                      <div className="flex items-center gap-1 mb-3">
+                        <span className="text-yellow-400">⭐</span>
+                        <span className="text-sm font-medium">{product.rating?.toFixed(1)}</span>
+                        <span className="text-xs text-gray-500">({product.reviewCount})</span>
+                      </div>
+                      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold">Sepete Ekle</Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Montaj Noktaları Banner */}
+          <div className="mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-3xl font-bold mb-3">
+                  <MapPin className="inline w-8 h-8 mr-2" />
+                  1000+ Montaj Noktası
+                </h2>
+                <p className="text-lg">Türkiye'nin 81 ilinde anlaşmalı montaj servisleri</p>
+              </div>
+              <Button className="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-6 text-lg font-bold">
+                Montaj Noktalarını Gör
+              </Button>
+            </div>
           </div>
         </div>
       </div>
