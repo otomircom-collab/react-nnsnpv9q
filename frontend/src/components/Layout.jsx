@@ -81,10 +81,10 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 1. EN ÜSTTE - SAYFA GEÇİŞLERİ (Her kategorinin farklı rengi) */}
-      <div className="bg-white border-b border-gray-200">
+      {/* 1. EN ÜSTTE - SAYFA GEÇİŞLERİ (Migros gibi kutucuk/kolon) */}
+      <div className="bg-gray-50 border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
+          <div className="flex items-stretch gap-0 overflow-x-auto scrollbar-hide">
             <Link
               to="/yedek-parca"
               className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
