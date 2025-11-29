@@ -213,11 +213,11 @@ const Layout = ({ children }) => {
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-[1400px] mx-auto px-4 py-3">
           <div className="flex items-center gap-4">
-            {/* Logo */}
+            {/* Logo - Trendyol Tarzı */}
             <Link to="/" className="flex items-center flex-shrink-0" data-testid="logo-link">
-              <div className="bg-orange-500 px-5 py-2.5 rounded">
-                <div className="text-white text-lg font-bold leading-tight">OTOMARKET</div>
-                <div className="text-white text-xs font-medium leading-tight">GO</div>
+              <div className="text-2xl font-bold leading-tight">
+                <span className="text-gray-900">OTOMARKET</span>
+                <span className="text-orange-500">go</span>
               </div>
             </Link>
 
