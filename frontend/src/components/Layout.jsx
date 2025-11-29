@@ -16,6 +16,9 @@ const Layout = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [deliveryModalOpen, setDeliveryModalOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [orderTrackingModalOpen, setOrderTrackingModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
