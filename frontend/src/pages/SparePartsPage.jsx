@@ -25,7 +25,7 @@ const SparePartsPage = () => {
     'Egzoz Sistemi',
     'Aydınlatma',
     'İç Donanım',
-    'Klimadan",
+    'Klima',
     'Yakıt Sistemi',
     'Soğutma Sistemi',
     'Direksiyon'
