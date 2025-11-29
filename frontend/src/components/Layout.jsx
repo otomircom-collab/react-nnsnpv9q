@@ -309,6 +309,11 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <main className="min-h-screen bg-gray-50">{children}</main>
 
+      {/* Modals */}
+      <DeliveryModal open={deliveryModalOpen} onOpenChange={setDeliveryModalOpen} />
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
+      <OrderTrackingModal open={orderTrackingModalOpen} onOpenChange={setOrderTrackingModalOpen} />
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 mt-16">
         <div className="max-w-7xl mx-auto px-4">
