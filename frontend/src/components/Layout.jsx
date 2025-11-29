@@ -266,6 +266,38 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
+      {/* 4. EN ALT - Kategoriler Menüsü */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <div className="flex items-center gap-6 py-2.5 overflow-x-auto scrollbar-hide">
+            <button className="flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-orange-500 whitespace-nowrap">
+              <Menu className="w-4 h-4" />
+              KATEGORİLER
+            </button>
+            <button className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              <Star className="w-4 h-4" />
+              FAVORİLERİM
+            </button>
+            <Link to="/" className="text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              KAMPANYALAR
+            </Link>
+            <Link to="/bakim-robotu" className="text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              MİGROSKOP
+            </Link>
+            <Link to="/aninda-teslimat" className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              <Tag className="w-4 h-4" />
+              ÇOKLU İNDİRİMLER
+            </Link>
+            <Link to="/" className="text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              MONEY İNDİRİMLİ
+            </Link>
+            <Link to="/" className="text-sm font-semibold text-gray-700 hover:text-orange-500 whitespace-nowrap">
+              NE PİŞİRSEM?
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <main className="min-h-screen bg-gray-50">{children}</main>
 
