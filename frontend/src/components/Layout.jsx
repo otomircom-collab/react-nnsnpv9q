@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import DeliveryModal from '@/components/DeliveryModal';
 import AuthModal from '@/components/AuthModal';
 import OrderTrackingModal from '@/components/OrderTrackingModal';
+import ChatSupport from '@/components/ChatSupport';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
