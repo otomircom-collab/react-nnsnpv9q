@@ -181,41 +181,20 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* 2. ORTA - Logo + Alt Markalar + Sipariş Takibi + Giriş */}
+      {/* 2. ORTA - Logo + Sipariş Takibi + Giriş */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center" data-testid="logo-link">
               <div className="bg-orange-500 px-5 py-2.5 -ml-4">
-                <div className="text-white text-lg font-bold leading-tight">Migros</div>
-                <div className="text-white text-xs font-medium leading-tight">Sanalmarket</div>
+                <div className="text-white text-lg font-bold leading-tight">OTOMARKET</div>
+                <div className="text-white text-xs font-medium leading-tight">GO</div>
               </div>
             </Link>
 
-            {/* Alt Markalar */}
-            <div className="hidden lg:flex items-center gap-1 flex-1 ml-4">
-              <Link to="/aninda-teslimat" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
-                <div className="text-center">
-                  <div className="font-bold">Migros Hemen</div>
-                </div>
-              </Link>
-              <Link to="/aksesuar" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
-                <div className="text-center">
-                  <div className="font-bold">Migros Yemek</div>
-                </div>
-              </Link>
-              <Link to="/jant-lastik" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
-                <div className="text-center">
-                  <div className="font-bold">Migros Ekstra</div>
-                </div>
-              </Link>
-              <Link to="/ustam-ozel" className="px-3 py-1.5 text-xs font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap rounded hover:bg-gray-50">
-                <div className="text-center">
-                  <div className="font-bold">Mion</div>
-                </div>
-              </Link>
-            </div>
+            {/* Boş alan */}
+            <div className="flex-1"></div>
 
             {/* Sağ Taraf */}
             <div className="flex items-center gap-3">
