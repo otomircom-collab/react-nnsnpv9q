@@ -99,87 +99,87 @@ const Layout = ({ children }) => {
             </Link>
             <Link
               to="/aksesuar"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/aksesuar'
-                  ? 'text-purple-600 border-purple-600 bg-purple-50'
-                  : 'text-gray-700 border-transparent hover:text-purple-600 hover:bg-purple-50'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-purple-600'
               }`}
               data-testid="tab-accessories"
             >
-              <span className="text-lg">🎨</span>
-              Aksesuar
+              <span className="text-3xl">🎨</span>
+              <span>Aksesuar</span>
             </Link>
             <Link
               to="/jant-lastik"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/jant-lastik'
-                  ? 'text-blue-600 border-blue-600 bg-blue-50'
-                  : 'text-gray-700 border-transparent hover:text-blue-600 hover:bg-blue-50'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-blue-600'
               }`}
               data-testid="tab-tires"
             >
-              <span className="text-lg">⚙️</span>
-              Jant & Lastik
+              <span className="text-3xl">⚙️</span>
+              <span>Jant & Lastik</span>
             </Link>
             <Link
               to="/ustam-ozel"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/ustam-ozel'
-                  ? 'text-gray-700 border-gray-700 bg-gray-100'
-                  : 'text-gray-700 border-transparent hover:text-gray-700 hover:bg-gray-100'
+                  ? 'bg-white text-gray-700 shadow-sm'
+                  : 'text-gray-700 hover:bg-white'
               }`}
               data-testid="tab-b2b"
             >
-              <span className="text-lg">👨‍🔧</span>
-              Ustam Özel
+              <span className="text-3xl">👨‍🔧</span>
+              <span>Ustam Özel</span>
             </Link>
             <Link
               to="/bakim-robotu"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/bakim-robotu'
-                  ? 'text-cyan-600 border-cyan-600 bg-cyan-50'
-                  : 'text-gray-700 border-transparent hover:text-cyan-600 hover:bg-cyan-50'
+                  ? 'bg-white text-cyan-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-cyan-600'
               }`}
               data-testid="tab-bot"
             >
-              <span className="text-lg">🤖</span>
-              Bakım Robotu
+              <span className="text-3xl">🤖</span>
+              <span>Bakım Robotu</span>
             </Link>
             <Link
               to="/sigortan"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/sigortan'
-                  ? 'text-red-600 border-red-600 bg-red-50'
-                  : 'text-gray-700 border-transparent hover:text-red-600 hover:bg-red-50'
+                  ? 'bg-white text-red-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-red-600'
               }`}
               data-testid="tab-insurance"
             >
-              <span className="text-lg">🛡️</span>
-              Sigortan
+              <span className="text-3xl">🛡️</span>
+              <span>Sigortan</span>
             </Link>
             <Link
               to="/aninda-teslimat"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 border-r border-gray-200 transition-all min-w-[120px] ${
                 location.pathname === '/aninda-teslimat'
-                  ? 'text-green-600 border-green-600 bg-green-50'
-                  : 'text-gray-700 border-transparent hover:text-green-600 hover:bg-green-50'
+                  ? 'bg-white text-green-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-green-600'
               }`}
               data-testid="tab-quick-delivery"
             >
-              <span className="text-lg">⚡</span>
-              Anında Teslimat
+              <span className="text-3xl">⚡</span>
+              <span>Anında Teslimat</span>
             </Link>
             <Link
               to="/servis-bulucu"
-              className={`flex items-center gap-2 px-5 py-3 text-sm font-bold whitespace-nowrap flex-shrink-0 border-b-3 transition-all ${
+              className={`flex flex-col items-center justify-center gap-2 px-6 py-4 text-sm font-bold whitespace-nowrap flex-shrink-0 transition-all min-w-[120px] ${
                 location.pathname === '/servis-bulucu'
-                  ? 'text-indigo-600 border-indigo-600 bg-indigo-50'
-                  : 'text-gray-700 border-transparent hover:text-indigo-600 hover:bg-indigo-50'
+                  ? 'bg-white text-indigo-600 shadow-sm'
+                  : 'text-gray-700 hover:bg-white hover:text-indigo-600'
               }`}
               data-testid="tab-service-finder"
             >
-              <span className="text-lg">📍</span>
-              Servis Bulucu
+              <span className="text-3xl">📍</span>
+              <span>Servis Bulucu</span>
             </Link>
           </div>
         </div>
