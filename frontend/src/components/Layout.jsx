@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, Search, User, Menu, X } from 'lucide-react';
+import { ShoppingCart, Search, MapPin, ChevronDown, Star, Tag, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
@@ -11,7 +11,7 @@ const API = `${BACKEND_URL}/api`;
 const Layout = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartTotal, setCartTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +20,6 @@ const Layout = ({ children }) => {
     fetchCategories();
     fetchCartCount();
     
-    // Listen for cart updates
     const handleCartUpdate = () => {
       fetchCartCount();
     };
@@ -45,6 +44,8 @@ const Layout = ({ children }) => {
       const userId = localStorage.getItem('userId') || 'guest';
       const response = await axios.get(`${API}/cart/${userId}`);
       setCartCount(response.data.length);
+      const total = response.data.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      setCartTotal(total);
     } catch (error) {
       console.error('Sepet sayısı alınamadı:', error);
     }
@@ -73,105 +74,140 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top Header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center gap-4">
-            <span>📞 444 0 867</span>
-            <span>|</span>
-            <span>✉️ destek@otomarketgo.com</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="hover:text-orange-400 transition-colors" data-testid="account-link">
-              <User className="inline w-4 h-4 mr-1" />
-              Hesabım
-            </button>
+      {/* TOP BAND - Logo + Alt Markalar + Giriş */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <Link to="/" className="flex items-center bg-orange-500 px-6 py-4 -ml-4" data-testid="logo-link">
+              <div className="text-white">
+                <div className="text-2xl font-bold leading-tight">OTOMARKET</div>
+                <div className="text-xl font-bold leading-tight">GO</div>
+              </div>
+            </Link>
+
+            {/* Alt Markalar - Migros Tarzı */}
+            <div className="hidden lg:flex items-center gap-6 flex-1 ml-8">
+              <Link to="/aninda-teslimat" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
+                Anında Teslimat
+              </Link>
+              <Link to="/aksesuar" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
+                Aksesuar
+              </Link>
+              <Link to="/jant-lastik" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
+                Jant & Lastik
+              </Link>
+              <Link to="/ustam-ozel" className="text-sm font-medium text-gray-700 hover:text-orange-500 whitespace-nowrap">
+                Ustam Özel
+              </Link>
+            </div>
+
+            {/* Sağ Taraf - Sipariş Takibi + Giriş */}
+            <div className="flex items-center gap-4">
+              <button className="text-sm text-gray-700 hover:text-orange-500" data-testid="order-tracking">
+                Sipariş Takibi
+              </button>
+              <button className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-orange-500" data-testid="account-link">
+                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-xs">👤</span>
+                </div>
+                Üye Ol veya Giriş Yap
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-6">
-            {/* Logo */}
-            <Link to="/" className="flex items-center" data-testid="logo-link">
-              <div className="text-3xl font-bold">
-                <span className="text-gray-900">OTOMARKET</span>
-                <span className="text-orange-500">GO</span>
-              </div>
-            </Link>
+      {/* MIDDLE BAND - Teslimat + Arama */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            {/* Teslimat Yöntemi */}
+            <button className="flex items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg hover:border-orange-500 transition-colors">
+              <MapPin className="w-5 h-5 text-gray-600" />
+              <span className="text-sm font-medium text-gray-700">Teslimat Yöntemini Belirle</span>
+              <ChevronDown className="w-4 h-4 text-gray-600" />
+            </button>
 
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
-              <div className="relative">
+            {/* Arama */}
+            <form onSubmit={handleSearch} className="flex-1 flex items-center gap-2">
+              <div className="relative flex-1">
                 <Input
                   type="text"
                   placeholder="Ürün, marka veya OEM kodu ara..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-4 pr-12 py-6 text-base border-2 border-gray-200 focus:border-orange-500 rounded-lg"
+                  className="w-full h-12 pl-4 pr-4 text-base border-2 border-gray-300 focus:border-orange-500 rounded-lg"
                   data-testid="search-input"
                 />
-                <Button
-                  type="submit"
-                  className="absolute right-1 top-1 bg-orange-500 hover:bg-orange-600 text-white px-6 h-10 rounded-md"
-                  data-testid="search-button"
-                >
-                  <Search className="w-5 h-5" />
-                </Button>
               </div>
-            </form>
-
-            {/* Cart */}
-            <Link to="/sepet" data-testid="cart-link">
-              <Button variant="outline" className="relative border-2 hover:border-orange-500 transition-colors">
-                <ShoppingCart className="w-5 h-5" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold" data-testid="cart-count">
-                    {cartCount}
-                  </span>
-                )}
-                <span className="ml-2 hidden md:inline">Sepetim</span>
+              <Button
+                type="submit"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 h-12 text-base font-medium rounded-lg"
+                data-testid="search-button"
+              >
+                Ara
               </Button>
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              data-testid="mobile-menu-toggle"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            </form>
           </div>
         </div>
+      </div>
 
-        {/* Categories Navigation - Migros Style - Yatay Scroll */}
-        <nav className="bg-white border-t border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center overflow-x-auto gap-1 py-2 scrollbar-hide">
-              {categories.map((category) => {
-                const isActive = location.pathname === getCategoryLink(category.id);
-                return (
-                  <Link
-                    key={category.id}
-                    to={getCategoryLink(category.id)}
-                    className={`flex-shrink-0 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-all ${
-                      isActive
-                        ? 'bg-orange-500 text-white rounded-md'
-                        : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md'
-                    }`}
-                    data-testid={`category-${category.id}`}
-                  >
-                    {category.name}
-                  </Link>
-                );
-              })}
+      {/* BOTTOM BAND - Kategoriler + Sepet */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <div className="flex items-center justify-between h-14">
+            {/* Sol - Kategoriler */}
+            <div className="flex items-center gap-6">
+              <Link
+                to="/yedek-parca"
+                className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-orange-500"
+                data-testid="categories-menu"
+              >
+                <Menu className="w-4 h-4" />
+                KATEGORİLER
+              </Link>
+              <Link to="/" className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-500">
+                <Star className="w-4 h-4" />
+                FAVORİLERİM
+              </Link>
+              <Link to="/" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+                KAMPANYALAR
+              </Link>
+              <Link to="/bakim-robotu" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+                BAKIM ROBOTU
+              </Link>
+              <Link to="/aninda-teslimat" className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-500">
+                <Tag className="w-4 h-4" />
+                HIZLI TESLİMAT
+              </Link>
+              <Link to="/sigortan" className="text-sm font-medium text-gray-700 hover:text-orange-500">
+                SİGORTAN
+              </Link>
             </div>
+
+            {/* Sağ - Sepet */}
+            <Link to="/sepet" data-testid="cart-link">
+              <div className="flex items-center gap-3 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors">
+                <div className="relative">
+                  <ShoppingCart className="w-6 h-6 text-gray-700" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold" data-testid="cart-count">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <div className="text-xs text-gray-600">Sepetim</div>
+                  <div className="text-sm font-bold text-gray-900">
+                    {cartTotal.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
-        </nav>
-      </header>
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="min-h-screen">{children}</main>
