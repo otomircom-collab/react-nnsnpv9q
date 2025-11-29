@@ -69,10 +69,10 @@ const SparePartsPage = () => {
       { name: 'Amortisör Ön', category: 'Süspansiyon', oem: 'SUS-AMR-345' },
       { name: 'Salıncak Burcu', category: 'Süspansiyon', oem: 'SUS-ARM-678' },
       { name: 'Buji Takımı', category: 'Elektrik Parçaları', oem: 'ELC-SPK-901' },
-      { name: 'Aküdar, category: 'Elektrik Parçaları', oem: 'ELC-BAT-234' },
+      { name: 'Akü', category: 'Elektrik Parçaları', oem: 'ELC-BAT-234' },
       { name: 'Far Lambası H7', category: 'Aydınlatma', oem: 'LGT-H7-567' },
       { name: 'Stop Lambası', category: 'Aydınlatma', oem: 'LGT-STP-890' },
-      { name: 'Klima Filtresi', category: 'Klimadan', oem: 'AC-FLT-123' }
+      { name: 'Klima Filtresi', category: 'Klima', oem: 'AC-FLT-123' }
     ];
 
     return parts.map((part, index) => ({
