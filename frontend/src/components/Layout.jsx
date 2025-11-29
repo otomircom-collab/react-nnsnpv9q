@@ -314,6 +314,9 @@ const Layout = ({ children }) => {
       <DeliveryModal open={deliveryModalOpen} onOpenChange={setDeliveryModalOpen} />
       <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
       <OrderTrackingModal open={orderTrackingModalOpen} onOpenChange={setOrderTrackingModalOpen} />
+      
+      {/* Chat Support */}
+      <ChatSupport />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 mt-16">
